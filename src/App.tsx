@@ -1,24 +1,31 @@
-import React from 'react';
-import logo from 'logo.svg';
-import 'App.css';
+import React, { useState } from 'react';
 
-function App() {
+import 'App.scss';
+
+import DimmedOverlay from 'components/common/DimmedOverlay';
+import SignInModal from 'components/homepage/SignInModal';
+
+const App = () => {
+  // Should we show the modal to sign up / register?
+  const [showModal, setShowModal] = useState(false);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div>
+      <div className="app">
+        <h1>
+          pkaso
+        </h1>
+        <button
+          onClick={() => setShowModal(!showModal)}
         >
-          Learn React
-        </a>
-      </header>
+          Sign In
+        </button>
+      </div>
+      { showModal && 
+        <DimmedOverlay>
+          <SignInModal closeModal={() => setShowModal(false)}/>
+        </DimmedOverlay>
+      }
     </div>
   );
 }
