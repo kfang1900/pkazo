@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 import Cancel from 'assets/cancel.svg';
 
-import 'styles/homepage/SignInModal.scss';
+import RegisterForm from 'components/forms/RegisterForm';
+import SignInForm from 'components/forms/SignInForm';
 
-interface SignInErrors {
-    email?: string;
-    password?: string;
-}
+import 'styles/homepage/SignInModal.scss';
 
 interface SignInModalProps {
     closeModal: () => void;
@@ -23,56 +20,27 @@ const SignInModal = ({ closeModal } : SignInModalProps) => {
         <div>
             {signIn &&
                 <div>
+                    <div className="header">
+                        <h2 className="headerPrimary">
+                            Sign in
+                        </h2>
+                        <button 
+                            onClick={() => setSignIn(false)}
+                            id="registerButton"
+                        >
+                            Register
+                        </button>
+                    </div>
+                    <SignInForm />
+                </div>
+            }
+            {!signIn &&
+                <div>
                     <h2>
-                        Sign in
+                        Create your account
                     </h2>
-                    <Formik
-                        initialValues={{ email: '', password: '' }}
-                        validate={values => {
-                            const errors: SignInErrors = {};
-                            if (!values.email) {
-                                errors.email = 'Required';
-                            } else if (
-                            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-                            ) {
-                                errors.email = 'Invalid email address';
-                            }
-                            if (!values.password) {
-                                errors.password = 'Required';
-                            }
-                            return errors;
-                        }}
-                        onSubmit={(values, { setSubmitting }) => {
-                            console.log(JSON.stringify(values));
-                            setSubmitting(false);
-                        }}
-                    >   
-                        { ({isSubmitting}) => (
-                            <Form>
-                                <label>
-                                    Email address
-                                </label>
-                                <div className="formField">
-                                    <Field type="email" name="email" />
-                                    <div className="error">
-                                        <ErrorMessage name="email" />
-                                    </div>
-                                </div>
-                                <label>
-                                    Password
-                                </label>
-                                <div className="formField">
-                                    <Field type="password" name="password" />
-                                    <div className="error">
-                                        <ErrorMessage name="password" />
-                                    </div>
-                                </div>
-                                <button id="signInButton" type="submit" disabled={isSubmitting}>
-                                    Sign in
-                                </button>
-                            </Form>
-                        )}    
-                    </Formik>
+                    Registration is easy.
+                <RegisterForm />
                 </div>
             }
         </div>
