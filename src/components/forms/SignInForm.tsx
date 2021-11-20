@@ -1,7 +1,7 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
-import 'styles/forms/SignInForm.scss';
+import styles from 'styles/forms/SignInForm.module.scss';
 
 interface SignInErrors {
     email?: string;
@@ -32,25 +32,25 @@ const SignInForm = () => {
     >   
         { ({isSubmitting}) => (
             <Form>
-                <label>
+                <label className={styles["label"]}>
                     Email address
                 </label>
                 <div>
-                    <Field type="email" name="email" />
-                    <div className="error">
+                    <Field type="email" name="email" className={styles["textInput"]}/>
+                    <div className={styles["error"]}>
                         <ErrorMessage name="email" />
                     </div>
                 </div>
-                <label>
+                <label className={styles["label"]}>
                     Password
                 </label>
                 <div>
-                    <Field type="password" name="password" />
-                    <div className="error">
+                    <Field type="password" name="password" className={styles["textInput"]} />
+                    <div className={styles["error"]}>
                         <ErrorMessage name="password" />
                     </div>
                 </div>
-                <button className="submitButton" type="submit" disabled={isSubmitting}>
+                <button className={styles["submitButton"]} type="submit" disabled={isSubmitting}>
                     Sign in
                 </button>
             </Form>

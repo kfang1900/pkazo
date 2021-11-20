@@ -1,7 +1,7 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
-import 'styles/forms/RegisterForm.scss';
+import styles from 'styles/forms/RegisterForm.module.scss';
 
 interface SignInErrors {
     email?: string;
@@ -36,34 +36,34 @@ const SignInForm = () => {
     >   
         { ({isSubmitting}) => (
             <Form>
-                <label className="requiredFieldLabel">
+                <label className={`${styles['label']} ${styles['requiredFieldLabel']}`}>
                     Email address
                 </label>
                 <div>
-                    <Field type="email" name="email" />
-                    <div className="error">
+                    <Field type="email" name="email" className={styles["textInput"]} />
+                    <div className={styles["error"]}>
                         <ErrorMessage name="email" />
                     </div>
                 </div>
-                <label className="requiredFieldLabel">
+                <label className={`${styles['label']} ${styles['requiredFieldLabel']}`}>
                     First name
                 </label>
                 <div>
-                    <Field name="firstName" />
-                    <div className="error">
+                    <Field name="firstName" className={styles["textInput"]}/>
+                    <div className={styles["error"]}>
                         <ErrorMessage name="password" />
                     </div>
                 </div>
-                <label className="requiredFieldLabel">
+                <label className={`${styles['label']} ${styles['requiredFieldLabel']}`}>
                     Password
                 </label>
                 <div>
-                    <Field type="password" name="password" />
-                    <div className="error">
+                    <Field type="password" name="password" className={styles["textInput"]} />
+                    <div className={styles["error"]}>
                         <ErrorMessage name="password" />
                     </div>
                 </div>
-                <button className="submitButton" type="submit" disabled={isSubmitting}>
+                <button className={styles["submitButton"]} type="submit" disabled={isSubmitting}>
                     Register
                 </button>
             </Form>

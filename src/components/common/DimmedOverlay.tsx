@@ -1,5 +1,6 @@
 import React from 'react';
-import 'styles/common/DimmedOverlay.scss';
+
+import styles from 'styles/common/DimmedOverlay.module.scss';
 
 interface DimmedOverlayProps {
     children: JSX.Element;
@@ -7,7 +8,7 @@ interface DimmedOverlayProps {
 
 const DimmedOverlay = ({ children }: DimmedOverlayProps) => {
   return (
-    <div className="overlay">
+    <div className={styles["overlay"]}>
       { children }
     </div>
   );

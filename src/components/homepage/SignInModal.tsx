@@ -5,7 +5,7 @@ import Cancel from 'assets/cancel.svg';
 import RegisterForm from 'components/forms/RegisterForm';
 import SignInForm from 'components/forms/SignInForm';
 
-import 'styles/homepage/SignInModal.scss';
+import styles from 'styles/homepage/SignInModal.module.scss';
 
 interface SignInModalProps {
     closeModal: () => void;
@@ -16,17 +16,17 @@ const SignInModal = ({ closeModal } : SignInModalProps) => {
   const [signIn, setSignIn] = useState(true);
 
   return (
-    <div className="modal">
+    <div className={styles["modal"]}>
         <div>
             {signIn &&
                 <div>
-                    <div className="header">
-                        <h2 className="headerPrimary">
+                    <div className={styles["header"]}>
+                        <h2 className={styles["headerPrimary"]}>
                             Sign in
                         </h2>
                         <button 
                             onClick={() => setSignIn(false)}
-                            id="registerButton"
+                            className={styles["registerButton"]}
                         >
                             Register
                         </button>
@@ -46,7 +46,7 @@ const SignInModal = ({ closeModal } : SignInModalProps) => {
         </div>
         <img 
             alt='cancel' 
-            id='cancelIcon' 
+            className={styles['cancelIcon']}
             onClick={closeModal} 
             src={Cancel}
         >
