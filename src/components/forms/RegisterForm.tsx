@@ -1,5 +1,4 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
@@ -14,8 +13,6 @@ interface SignInErrors {
 }
 
 const SignInForm = () => {
-
-    const navigate = useNavigate();
 
     return (<Formik
         initialValues={{ email: '', firstName: '', password: '' }}
