@@ -1,5 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+
+import { createAccount } from 'api/firebaseAuthApi';
 
 import styles from 'styles/forms/RegisterForm.module.scss';
 
@@ -10,6 +14,9 @@ interface SignInErrors {
 }
 
 const SignInForm = () => {
+
+    const navigate = useNavigate();
+
     return (<Formik
         initialValues={{ email: '', firstName: '', password: '' }}
         validate={values => {
@@ -29,8 +36,13 @@ const SignInForm = () => {
             }
             return errors;
         }}
-        onSubmit={(values, { setSubmitting }) => {
+        onSubmit={async (values, { setSubmitting }) => {
             console.log(JSON.stringify(values));
+            try {
+                await createAccount(values.email, values.password);
+            } catch (error) {
+                console.log('Error...');
+            }
             setSubmitting(false);
         }}
     >   

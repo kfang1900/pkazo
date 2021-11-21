@@ -1,6 +1,8 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
+import { signIn } from 'api/firebaseAuthApi';
+
 import styles from 'styles/forms/SignInForm.module.scss';
 
 interface SignInErrors {
@@ -25,8 +27,9 @@ const SignInForm = () => {
             }
             return errors;
         }}
-        onSubmit={(values, { setSubmitting }) => {
+        onSubmit={async (values, { setSubmitting }) => {
             console.log(JSON.stringify(values));
+            await signIn(values.email, values.password);
             setSubmitting(false);
         }}
     >   

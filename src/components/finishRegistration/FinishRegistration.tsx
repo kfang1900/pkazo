@@ -10,9 +10,13 @@ const FinishRegistration = () => {
 
   const phase = searchParams.get("phase");
 
+  if(!phase) {
+      setSearchParams({ "phase": "1;"})
+  }
+
   if (!phase || parseInt(phase, 10) === 1) {
     return (<div>
-        <AboutYouForm />
+        <AboutYouForm submit={() => setSearchParams({ "phase": "2" })}/>
     </div>)
   }
   

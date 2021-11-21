@@ -7,7 +7,11 @@ interface AboutYouErrors {
     artistType?: string;
 }
 
-const AboutYouForm = () => {
+interface AboutYouFormProps {
+    submit: () => void;
+}
+
+const AboutYouForm = ({ submit }: AboutYouFormProps) => {
     return (<Formik
         initialValues={{ artistType: '' }}
         validate={values => {
@@ -20,6 +24,7 @@ const AboutYouForm = () => {
         onSubmit={(values, { setSubmitting }) => {
             console.log(JSON.stringify(values));
             setSubmitting(false);
+            submit();
         }}
     >   
         { ({ isSubmitting }) => (
