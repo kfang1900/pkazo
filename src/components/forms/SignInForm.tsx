@@ -10,10 +10,15 @@ interface SignInErrors {
     password?: string;
 }
 
-const SignInForm = () => {
+interface SignInFormProps {
+    onSignIn: () => void;
+}
+
+const SignInForm = ({ onSignIn }: SignInFormProps ) => {
+
     return (<Formik
         initialValues={{ email: '', password: '' }}
-        validate={values => {
+        validate={(values) => {
             const errors: SignInErrors = {};
             if (!values.email) {
                 errors.email = 'Required';
@@ -27,10 +32,25 @@ const SignInForm = () => {
             }
             return errors;
         }}
-        onSubmit={async (values, { setSubmitting }) => {
-            console.log(JSON.stringify(values));
-            await signIn(values.email, values.password);
-            setSubmitting(false);
+        onSubmit={async (values, { setFieldError }) => {
+            try {
+                await signIn(values.email, values.password);
+                onSignIn();
+            } catch (error: any) {
+                switch (error.code) {
+                    case "auth/invalid-email": {
+                        setFieldError("email", "Invalid email address");
+                        break;
+                    }
+                    case "auth/user-not-found": {
+                        setFieldError("email", "No user with the given email was found");
+                        break;
+                    }
+                    case "auth/wrong-password": {
+                        setFieldError("password", "Invalid password");
+                    }
+                }
+            }
         }}
     >   
         { ({isSubmitting}) => (

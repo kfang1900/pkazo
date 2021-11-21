@@ -12,7 +12,7 @@ interface SignInModalProps {
 }
 
 const SignInModal = ({ closeModal } : SignInModalProps) => {
-  // Should we ask the user to sign in or register (default sign in)
+  // Should we ask the user to sign in or register? (default is sign in)
   const [signIn, setSignIn] = useState(true);
 
   return (
@@ -31,7 +31,7 @@ const SignInModal = ({ closeModal } : SignInModalProps) => {
                             Register
                         </button>
                     </div>
-                    <SignInForm />
+                    <SignInForm onSignIn={closeModal} />
                 </div>
             }
             {!signIn &&

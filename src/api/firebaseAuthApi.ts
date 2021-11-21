@@ -2,13 +2,11 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } f
 
 export const createAccount = async (email: string, password: string) => {
     const auth = getAuth();
-    const result = await createUserWithEmailAndPassword(auth, email, password);
-    return result.user;
+    await createUserWithEmailAndPassword(auth, email, password);
 };
 
 export const signIn = async (email: string, password: string) => {
     const auth = getAuth();
-    const result = await signInWithEmailAndPassword(auth, email, password);
-    return result.user;
+    await signInWithEmailAndPassword(auth, email, password);
 }
     

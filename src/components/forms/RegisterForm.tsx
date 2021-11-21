@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
@@ -6,18 +7,20 @@ import { createAccount } from 'api/firebaseAuthApi';
 
 import styles from 'styles/forms/RegisterForm.module.scss';
 
-interface SignInErrors {
+interface RegisterErrors {
     email?: string;
     firstName?: string;
     password?: string;
 }
 
-const SignInForm = () => {
+const RegisterForm = () => {
+
+    const navigate = useNavigate();
 
     return (<Formik
         initialValues={{ email: '', firstName: '', password: '' }}
         validate={values => {
-            const errors: SignInErrors = {};
+            const errors: RegisterErrors = {};
             if (!values.email) {
                 errors.email = 'Required';
             } else if (
@@ -33,14 +36,26 @@ const SignInForm = () => {
             }
             return errors;
         }}
-        onSubmit={async (values, { setSubmitting }) => {
-            console.log(JSON.stringify(values));
+        onSubmit={async (values, { setFieldError }) => {
             try {
                 await createAccount(values.email, values.password);
-            } catch (error) {
-                console.log('Error...');
+                navigate('/finishRegistration?phase=1');
+            } catch (error: any) {
+                switch (error.code) {
+                    case "auth/email-already-in-use": {
+                        setFieldError("email", "An account with that email already exists")
+                        break;
+                    }
+                    case "auth/invalid-email": {
+                        setFieldError("email", "Invalid email address");
+                        break;
+                    }
+                    case "auth/weak-password": {
+                        setFieldError("password", "Password is not strong enough");
+                        break;
+                    }
+                }
             }
-            setSubmitting(false);
         }}
     >   
         { ({isSubmitting}) => (
@@ -60,7 +75,7 @@ const SignInForm = () => {
                 <div>
                     <Field name="firstName" className={styles["textInput"]}/>
                     <div className={styles["error"]}>
-                        <ErrorMessage name="password" />
+                        <ErrorMessage name="firstName" />
                     </div>
                 </div>
                 <label className={`${styles['label']} ${styles['requiredFieldLabel']}`}>
@@ -81,4 +96,4 @@ const SignInForm = () => {
   );
 }
 
-export default SignInForm;
+export default RegisterForm;

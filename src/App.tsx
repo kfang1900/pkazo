@@ -1,25 +1,38 @@
 import React, { useState } from 'react';
 
-import 'App.scss';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+
+import styles from 'App.module.scss';
 
 import DimmedOverlay from 'components/common/DimmedOverlay';
 import SignInModal from 'components/homepage/SignInModal';
 
 const App = () => {
-  // Should we show the modal to sign up / register?
+  
+  const [isSignedIn, setIsSignedIn] = React.useState(false);
+  // Should we show the sign in modal?
   const [showModal, setShowModal] = useState(false);
+
+  const auth = getAuth();
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      setIsSignedIn(true);
+    } else {
+      setIsSignedIn(false);
+    }
+  });
 
   return (
     <div>
-      <div className="app">
+      <div className={styles["app"]}>
         <h1>
           pkaso
         </h1>
-        <button
-          onClick={() => setShowModal(!showModal)}
+        {!isSignedIn && <button
+          onClick={() => setShowModal(true)}
         >
           Sign In
-        </button>
+        </button> }
       </div>
       { showModal && 
         <DimmedOverlay>

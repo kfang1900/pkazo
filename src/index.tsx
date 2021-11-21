@@ -32,7 +32,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 initializeApp(firebaseConfig);
-console.log("initialized");
 // const analytics = getAnalytics(app);
 
 ReactDOM.render(
