@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 
 import styles from 'App.module.scss';
 
 import DimmedOverlay from 'components/common/DimmedOverlay';
 import SignInModal from 'components/homepage/SignInModal';
+
 
 const App = () => {
   
@@ -33,12 +34,19 @@ const App = () => {
         >
           Sign In
         </button> }
+        {isSignedIn && <button
+          onClick={async () => await signOut(auth)}>
+          Sign Out
+          </button>}
+
       </div>
       { showModal && 
         <DimmedOverlay>
           <SignInModal closeModal={() => setShowModal(false)}/>
         </DimmedOverlay>
       }
+
+
     </div>
   );
 }
