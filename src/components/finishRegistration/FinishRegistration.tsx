@@ -1,10 +1,6 @@
-import AboutYouForm from 'components/forms/AboutYouForm';
-
 import styles from 'styles/finishRegistration/UpperTabs.module.scss';
 
-import { useSearchParams } from 'react-router-dom';
 import { useState } from 'react';
-
 
 const FinishRegistration = () => {
    const defaultTabs = [
@@ -32,9 +28,8 @@ const FinishRegistration = () => {
    const updateTab = (tabNum:number) => {
         let newTabs = [...tabs];
         for (let i = 0; i < tabs.length; i++) {
-            let tab = tabs[i];
             newTabs[i].active = false;
-            if (i == tabNum) {
+            if (i === tabNum) {
                 newTabs[i].active = true;
             }
         }
@@ -44,7 +39,6 @@ const FinishRegistration = () => {
   // const [searchParams, setSearchParams] = useSearchParams();
   // const phase = searchParams.get("phase");
   const [tabs, setTabs] = useState(defaultTabs);
-  const maxTabs = defaultTabs.length;
 
 
   // if(!phase) {
