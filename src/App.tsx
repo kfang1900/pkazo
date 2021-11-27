@@ -6,6 +6,7 @@ import styles from 'App.module.scss';
 
 import DimmedOverlay from 'components/common/DimmedOverlay';
 import SignInModal from 'components/homepage/SignInModal';
+import Navigation from 'components/common/Navigation';
 
 
 const App = () => {
@@ -25,20 +26,11 @@ const App = () => {
 
   return (
     <div>
+      <Navigation showLogin={() => setShowModal(true)} isSignedIn={isSignedIn} />
       <div className={styles["app"]}>
         <h1>
           pkaso
         </h1>
-        {!isSignedIn && <button
-          onClick={() => setShowModal(true)}
-        >
-          Sign In
-        </button> }
-        {isSignedIn && <button
-          onClick={async () => await signOut(auth)}>
-          Sign Out
-          </button>}
-
       </div>
       { showModal && 
         <DimmedOverlay>
