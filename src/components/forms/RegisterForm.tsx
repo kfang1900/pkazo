@@ -39,7 +39,7 @@ const RegisterForm = () => {
         onSubmit={async (values, { setFieldError }) => {
             try {
                 await createAccount(values.email, values.password);
-                navigate('/finishRegistration?phase=1');
+                navigate('/finishRegistration');
             } catch (error: any) {
                 switch (error.code) {
                     case "auth/email-already-in-use": {

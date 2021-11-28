@@ -7,24 +7,34 @@ interface NavSectionProps {
 }
 
 const NavSection = ({title, children} : NavSectionProps) => {
-    let [visible, setVisible] = useState(false);
+    const [visible, setVisible] = useState(false);
+    const [delayHandler, setDelayHandler] = useState(setTimeout(() =>{}, 500));
 
-    const toggleVisiblity = () => {
-        setVisible(!visible);
+    const toggleOn = (event: React.MouseEvent) => {
+        setVisible(true);
+        console.log("Enter, ", event.target);
+        clearTimeout(delayHandler);
+    }
+
+    const toggleOff = (event: React.MouseEvent) => {
+        console.log("Leave, ", event.target);
+        setDelayHandler(setTimeout(() => {
+            setVisible(false);
+        }, 200));
     }
     
+        // <div onMouseLeave={toggleVisiblity} onMouseEnter={toggleVisiblity}>
     return (
-        <div onMouseLeave={toggleVisiblity} onMouseEnter={toggleVisiblity}>
+        <section onMouseEnter={toggleOn} onMouseLeave={toggleOff} >
             <div className={styles["nav-section"]}>
                 {title}
             </div>
-            
             {visible &&
                 <div className={styles["nav-section-menu"]}>
                     {children}
                 </div>
                 }
-        </div>
+        </section>
     );
 }
 

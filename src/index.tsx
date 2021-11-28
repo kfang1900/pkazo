@@ -6,7 +6,12 @@ import {
   Route
 } from 'react-router-dom';
 import 'index.css';
-import App from 'App';
+import HomePage from 'components/homepage/HomePage';
+import BuyPage from 'components/pages/BuyPage';
+import SellPage from 'components/pages/SellPage';
+import CartPage from 'components/pages/CartPage';
+import AboutPage from 'components/pages/AboutPage';
+import AppDownloadPage from 'components/pages/AppDownloadPage';
 import { initializeApp } from "firebase/app";
 import reportWebVitals from 'reportWebVitals';
 
@@ -38,8 +43,13 @@ ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<App />} />
+        <Route path='/' element={<HomePage />} />
         <Route path='/finishRegistration' element={<FinishRegistration />} />
+        <Route path='/buy' element={<BuyPage />} />
+        <Route path='/sell' element={<SellPage />} />
+        <Route path='/cart' element={<CartPage />} />
+        <Route path='/app' element={<AppDownloadPage />} />
+        <Route path='/about' element={<AboutPage />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

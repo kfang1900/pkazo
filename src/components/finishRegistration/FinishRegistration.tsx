@@ -3,25 +3,55 @@ import styles from 'styles/finishRegistration/UpperTabs.module.scss';
 import { useState } from 'react';
 
 const FinishRegistration = () => {
-   const defaultTabs = [
+
+   interface Tab {
+        status: string;
+        description: string;
+        active: boolean;
+        store_name? : string;
+        preference? : string;
+        artistType? : string;
+        items ? : Array<String>;
+   }
+
+   const defaultTabs : Array<Tab> = [
         {
             status: "filled",
             description: "Shop Name",
             store_name: "",
             preference: "",
-            active: false,
+            active: true,
         },
         {
             status: "filled",
             description: "Artist Type",
             artistType: "",
-            active: true,
+            active: false,
         },
         {
             status: "empty",
             description: "Add Shop Items",
             active: false,
             items: [],
+        },
+        {
+            status: "empty",
+            description: "Other",
+            // store_name: "",
+            // preference: "",
+            active: false,
+        },
+        {
+            status: "filled",
+            description: "Another one",
+            // artistType: "",
+            active: false,
+        },
+        {
+            status: "empty",
+            description: "a 6th one",
+            active: false,
+            // items: [],
         }
    ];
 
@@ -36,9 +66,18 @@ const FinishRegistration = () => {
         setTabs(newTabs);
    }
 
+   const getActive = (tabs:Array<Tab>) => {
+      for (let i=0; i < tabs.length; i++) {
+        if (tabs[i].active) {
+            return tabs[i];
+        }
+      }
+   }
+
   // const [searchParams, setSearchParams] = useSearchParams();
   // const phase = searchParams.get("phase");
   const [tabs, setTabs] = useState(defaultTabs);
+  const activeTab = getActive(tabs) as Tab;
 
 
   // if(!phase) {
@@ -60,9 +99,11 @@ const FinishRegistration = () => {
                 <p> {tab.description}</p>
             </div>
           )}
-
         </div>
         <hr className={styles["line"]}/>
+        <div>
+            {activeTab.description}
+        </div>
     </div>
   );
 }
