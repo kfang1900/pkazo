@@ -1,13 +1,15 @@
-import AppTemplate from 'AppTemplate';
+import React from 'react';
+
+import Header from 'components/common/Header';
+
+import styles from 'styles/homepage/HomePage.module.scss';
 
 const HomePage = () => {
     
     return (
-        <AppTemplate>
-            <h1>
-                HomePage
-            </h1>
-        </AppTemplate>
+        <div className={styles["header"]}>
+            <Header />
+        </div>
     );
 }
 

@@ -1,0 +1,79 @@
+.cart {
+    float: right;
+    height: 25px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.category {
+    color: #1e1e1e;
+    font-size: 13px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.header {
+    border-bottom: 2px solid #e1e1e1;
+}
+
+.headerBottomRow {
+    display: flex;
+    justify-content: space-between;
+    margin: 24px 0 12px;
+}
+
+.headerTopRow {
+    display: flex;
+    align-items: center;
+}
+
+.headerTopRowRight {
+    align-items: center;
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+}
+
+.logo {
+    height: 25px;
+}
+
+.searchBar {
+    background-color: #e5e5e5;
+    border: none;
+    border-radius: 9999px;
+    color: #474747;
+    font-size: 15px;
+    margin-left: 24px;
+    outline: none;
+    padding: 9px 18px;
+    width: 400px;
+}
+
+.sellButton {
+    background-color: #ff1313;
+    border: none;
+    border-radius: 9999px;
+    color: white;
+    font-size: 15px;
+    font-weight: 550;
+    margin-right: 20px;
+    outline: none;
+    padding: 9px 18px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.signIn {
+    margin-right: 20px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}

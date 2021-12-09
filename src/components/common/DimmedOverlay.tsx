@@ -8,7 +8,7 @@ interface DimmedOverlayProps {
 
 const DimmedOverlay = ({ children }: DimmedOverlayProps) => {
   return (
-    <div className={styles["overlay"]}>
+    <div className={styles['overlay']}>
       { children }
     </div>
   );
