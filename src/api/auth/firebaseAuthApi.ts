@@ -37,6 +37,9 @@ export const signInWithGoogle = async () => {
 
 }
 
+/**
+ * A call to support logging in with facebook
+ */
 export const signInWithFacebook = async () => {
     //Defines provider for the login
     const provider = new FacebookAuthProvider();

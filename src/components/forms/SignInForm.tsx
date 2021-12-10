@@ -3,6 +3,8 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 import { signIn, signInWithGoogle, signInWithFacebook } from 'api/auth/firebaseAuthApi';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import googleLogo from 'assets/auth/googleLoginLogo.svg'
 import styles from 'styles/forms/SignInForm.module.scss';
 
 interface SignInErrors {
@@ -78,12 +80,23 @@ const SignInForm = ({ onSignIn }: SignInFormProps ) => {
 
                 </Form>
             )}
-        </Formik>
-        <button onClick={signInWithGoogle} className={styles["submitButton"]}>
-            Sign in with Google
-        </button><button onClick={signInWithFacebook} className={styles["submitButton"]}>
-            Sign in with Facebook
-        </button></>
+        </Formik>            
+        <table style={{display: 'flex',  justifyContent:'center', alignItems:'stretch'}}>
+            <tr>
+                <td>
+            <button onClick={signInWithGoogle} className={styles["submitButton"]}>
+                Sign in with Google
+            </button>
+            </td>
+            <td>
+            <button onClick={signInWithFacebook} className={styles["submitButton"]}>
+                Sign in with Facebook
+            </button>
+            </td>
+            </tr>
+        </table>
+      </>
+
 
     
   );
