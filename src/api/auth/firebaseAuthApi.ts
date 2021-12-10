@@ -1,4 +1,4 @@
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithRedirect, getRedirectResult } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithRedirect, getRedirectResult, FacebookAuthProvider } from "firebase/auth";
 
 export const createAccount = async (email: string, password: string) => {
     const auth = getAuth();
@@ -35,5 +35,20 @@ export const signInWithGoogle = async () => {
         const token = GoogleAuthProvider.credentialFromResult(result)?.accessToken;
     }
 
+}
+
+export const signInWithFacebook = async () => {
+    //Defines provider for the login
+    const provider = new FacebookAuthProvider();
+    const auth = getAuth();
+
+    await signInWithRedirect(auth, provider);
+    const result = await getRedirectResult(auth);
+
+    if(result){
+        //Adds result processing
+    }
+
+    //Adds scopes
 }
 

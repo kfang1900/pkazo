@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
-import { createAccount } from 'api/firebaseAuthApi';
+import { createAccount } from 'api/auth/firebaseAuthApi';
 
 import styles from 'styles/forms/RegisterForm.module.scss';
 
