@@ -1,7 +1,9 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
-import { signIn } from 'api/firebaseAuthApi';
+import { signIn, signInWithGoogle } from 'api/firebaseAuthApi';
+
+import googleSignin from 'assets/auth/googleSignin.png'
 
 import styles from 'styles/forms/SignInForm.module.scss';
 
@@ -16,22 +18,20 @@ interface SignInFormProps {
 
 const SignInForm = ({ onSignIn }: SignInFormProps ) => {
 
-    return (<Formik
+    return (<><Formik
         initialValues={{ email: '', password: '' }}
         validate={(values) => {
             const errors: SignInErrors = {};
             if (!values.email) {
                 errors.email = 'Required';
-            } else if (
-            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-            ) {
+            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
                 errors.email = 'Invalid email address';
             }
             if (!values.password) {
                 errors.password = 'Required';
             }
             return errors;
-        }}
+        } }
         onSubmit={async (values, { setFieldError }) => {
             try {
                 await signIn(values.email, values.password);
@@ -51,15 +51,15 @@ const SignInForm = ({ onSignIn }: SignInFormProps ) => {
                     }
                 }
             }
-        }}
-    >   
-        { ({isSubmitting}) => (
+        } }
+    >
+        {({ isSubmitting }) => (
             <Form>
                 <label className={styles["label"]}>
                     Email address
                 </label>
                 <div>
-                    <Field type="email" name="email" className={styles["textInput"]}/>
+                    <Field type="email" name="email" className={styles["textInput"]} />
                     <div className={styles["error"]}>
                         <ErrorMessage name="email" />
                     </div>
@@ -77,8 +77,12 @@ const SignInForm = ({ onSignIn }: SignInFormProps ) => {
                     Sign in
                 </button>
             </Form>
-        )}    
+
+        )}
     </Formik>
+    <button onClick={signInWithGoogle}><img src={googleSignin} alt='Sign in with Google'></img></button></>
+
+    
   );
 }
 
