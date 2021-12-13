@@ -37,6 +37,7 @@ const RegisterForm = () => {
             return errors;
         }}
         onSubmit={async (values, { setFieldError }) => {
+            //Attemps to validate the registration
             try {
                 await createAccount(values.email, values.password);
                 navigate('/finishRegistration');

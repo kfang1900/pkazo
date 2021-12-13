@@ -1,4 +1,4 @@
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithRedirect, getRedirectResult, FacebookAuthProvider } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithRedirect, getRedirectResult, FacebookAuthProvider, signInWithPopup, getAdditionalUserInfo } from "firebase/auth";
 
 export const createAccount = async (email: string, password: string) => {
     const auth = getAuth();
@@ -22,17 +22,23 @@ export const signInWithGoogle = async () => {
     provider.addScope("email");
 
     //Starts the signin process with a redirect flow
-    await signInWithRedirect(auth, provider)
-    const result = await getRedirectResult(auth);
+    const result = await signInWithPopup(auth, provider)
 
     //Assuming login was successful 
     if(result){
         //Pulls information from the login result
-        //TODO: Temporarily disabling unused vars, fix this later!
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const user = result.user;
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const token = GoogleAuthProvider.credentialFromResult(result)?.accessToken;
+        const additionalInfo = getAdditionalUserInfo(result);
+        //Confirms additionalinfo worked
+        if(additionalInfo) {
+            return additionalInfo.isNewUser;
+        } else{
+            throw Error;
+        }
+
+        
+    } else{
+        //Login unsuccessful
+        return false;
     }
 
 }

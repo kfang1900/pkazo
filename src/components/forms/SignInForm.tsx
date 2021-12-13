@@ -1,4 +1,3 @@
-import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 import { signIn, signInWithGoogle, signInWithFacebook } from 'api/auth/firebaseAuthApi';
@@ -6,6 +5,7 @@ import { signIn, signInWithGoogle, signInWithFacebook } from 'api/auth/firebaseA
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import googleLogo from 'assets/auth/googleLoginLogo.svg'
 import styles from 'styles/forms/SignInForm.module.scss';
+import { useNavigate } from 'react-router-dom';
 
 interface SignInErrors {
     email?: string;
@@ -17,6 +17,20 @@ interface SignInFormProps {
 }
 
 const SignInForm = ({ onSignIn }: SignInFormProps ) => {
+    const navigate = useNavigate();
+
+    const googleSignIn = () => {
+        signInWithGoogle().then((isNewUser) => {
+            debugger;
+            //If the user is a new user, bring them to finish registration
+            if(isNewUser) {
+                navigate('/finishRegistration')
+            } else {
+                //Close the signin modal
+            }
+        }
+        );
+    }
 
     return (
     <><Formik
@@ -82,18 +96,20 @@ const SignInForm = ({ onSignIn }: SignInFormProps ) => {
             )}
         </Formik>            
         <table style={{display: 'flex',  justifyContent:'center', alignItems:'stretch'}}>
-            <tr>
+            <tbody>
+                <tr>
+                    <td>
+                <button onClick={googleSignIn} className={styles["submitButton"]}>
+                    Sign in with Google
+                </button>
+                </td>
                 <td>
-            <button onClick={signInWithGoogle} className={styles["submitButton"]}>
-                Sign in with Google
-            </button>
-            </td>
-            <td>
-            <button onClick={signInWithFacebook} className={styles["submitButton"]}>
-                Sign in with Facebook
-            </button>
-            </td>
-            </tr>
+                <button onClick={signInWithFacebook} className={styles["submitButton"]}>
+                    Sign in with Facebook
+                </button>
+                </td>
+                </tr>
+            </tbody>
         </table>
       </>
 

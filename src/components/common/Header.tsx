@@ -76,7 +76,7 @@ const Header = () => {
         {
           navigationCategories.map((category) => {
             return (
-              <div className={styles['category']}>
+              <div key={category} className={styles['category']}>
                 {category}
               </div>
             );
