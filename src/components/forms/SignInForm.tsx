@@ -21,12 +21,11 @@ const SignInForm = ({ onSignIn }: SignInFormProps ) => {
 
     const googleSignIn = () => {
         signInWithGoogle().then((isNewUser) => {
-            debugger;
             //If the user is a new user, bring them to finish registration
             if(isNewUser) {
                 navigate('/finishRegistration')
             } else {
-                //Close the signin modal
+                onSignIn();
             }
         }
         );

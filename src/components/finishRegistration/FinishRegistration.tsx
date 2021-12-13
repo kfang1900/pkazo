@@ -1,68 +1,97 @@
 import styles from 'styles/finishRegistration/UpperTabs.module.scss';
 
 import { useState } from 'react';
+import { ArtistInfo } from './registrationTabs/ArtistInfo';
+import { getApp } from 'firebase/app';
+import { getDatabase, ref, update } from "firebase/database";
+import { getAuth } from 'firebase/auth';
+
 
 const FinishRegistration = () => {
+
+    //INITIAL USER REGISTRATION LOGIC
+
+    //First, let's insert the user into the database:
+    //Grabs the app
+    let app = getApp();
+    //Grab the user from the app
+    let user = getAuth(app).currentUser;
+    //If there isn't a user, we have issues.
+    if(!user) throw Error;
+    //Grab the database
+    let db = getDatabase(app);
+    let addUserInfo = (value: object) => {
+        return update(ref(db, 'users/' + user!.uid), value);
+    }
+    addUserInfo({
+        createdTime: Date.now()
+    })
+    
 
    interface Tab {
         status: string;
         description: string;
         active: boolean;
-        store_name? : string;
-        preference? : string;
-        artistType? : string;
-        items ? : Array<String>;
+        //The content being displayed in the tab, passed with the update function
+        content: (dbUpdate: (value: object) => Promise<void>) => JSX.Element;
+
    }
 
+   //TODO: Make all of them NOT artistInfo, but i needed to start with something.
    const defaultTabs : Array<Tab> = [
         {
             status: "filled",
-            description: "Shop Name",
-            store_name: "",
-            preference: "",
+            description: "Artist Information",
             active: true,
+            content: ArtistInfo,
         },
         {
             status: "filled",
-            description: "Artist Type",
-            artistType: "",
+            description: "Career Details",
             active: false,
+            content: ArtistInfo
         },
         {
             status: "empty",
-            description: "Add Shop Items",
+            description: "Upload Your Portfolio",
             active: false,
-            items: [],
+            content: ArtistInfo
+
         },
         {
             status: "empty",
-            description: "Other",
-            // store_name: "",
-            // preference: "",
+            description: "Stock Your Shop",
             active: false,
+            content: ArtistInfo
+
         },
         {
             status: "filled",
-            description: "Another one",
-            // artistType: "",
+            description: "Start Your Feed",
             active: false,
+            content: ArtistInfo
         },
         {
             status: "empty",
-            description: "a 6th one",
+            description: "How You'll Get Paid",
             active: false,
-            // items: [],
+            content: ArtistInfo
+
         }
    ];
 
-   const updateTab = (tabNum:number) => {
+/**
+ * Changes the currently active tab
+ * @param tabNum The tab that we're switching to
+ */
+   const updateTab = (tabNum: number) => {
         let newTabs = [...tabs];
-        for (let i = 0; i < tabs.length; i++) {
-            newTabs[i].active = false;
-            if (i === tabNum) {
-                newTabs[i].active = true;
-            }
-        }
+        //Sets each tab as not active
+        newTabs.forEach((t) => t.active = false);
+
+        //Sets the correct tab as active
+        newTabs[tabNum].active = true;
+
         setTabs(newTabs);
    }
 
@@ -102,7 +131,7 @@ const FinishRegistration = () => {
         </div>
         <hr className={styles["line"]}/>
         <div>
-            {activeTab.description}
+            {activeTab.content(addUserInfo)}
         </div>
     </div>
   );
