@@ -43,7 +43,7 @@ export const ArtistInfo = (dbUpdate: (value: object) => Promise<void>) => {
                 </label>
                 <label>
                 <Field type="radio" name="type" value="hobby" />
-                I create art as a hobby and that’s how I like it.
+                I create art as a hobby and that's how I like it.
                 </label>
                 <label>
                 <Field type="radio" name="type" value="other" />

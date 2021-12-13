@@ -23,6 +23,7 @@ const FinishRegistration = () => {
     let addUserInfo = (value: object) => {
         return update(ref(db, 'users/' + user!.uid), value);
     }
+    //Creates the folder for the user with just the current created time
     addUserInfo({
         createdTime: Date.now()
     })
@@ -32,6 +33,7 @@ const FinishRegistration = () => {
         status: string;
         description: string;
         active: boolean;
+        id: string;
         //The content being displayed in the tab, passed with the update function
         content: (dbUpdate: (value: object) => Promise<void>) => JSX.Element;
 
@@ -41,12 +43,14 @@ const FinishRegistration = () => {
    const defaultTabs : Array<Tab> = [
         {
             status: "filled",
+            id: "aInfo",
             description: "Artist Information",
             active: true,
             content: ArtistInfo,
         },
         {
             status: "filled",
+            id: "cDetails",
             description: "Career Details",
             active: false,
             content: ArtistInfo
@@ -54,12 +58,14 @@ const FinishRegistration = () => {
         {
             status: "empty",
             description: "Upload Your Portfolio",
+            id: "portfolio",
             active: false,
             content: ArtistInfo
 
         },
         {
             status: "empty",
+            id: "shopStock",
             description: "Stock Your Shop",
             active: false,
             content: ArtistInfo
@@ -67,12 +73,14 @@ const FinishRegistration = () => {
         },
         {
             status: "filled",
+            id: "feedStart",
             description: "Start Your Feed",
             active: false,
             content: ArtistInfo
         },
         {
             status: "empty",
+            id: "payment",
             description: "How You'll Get Paid",
             active: false,
             content: ArtistInfo
@@ -123,8 +131,8 @@ const FinishRegistration = () => {
         <div className={styles["statusNavigation"]}>
           {tabs.map((tab, i) => 
             <div className={styles["tab-section-header"]}>
-                {!tab.active && <div className={styles[`circle-${tab.status}`]} onClick={()=>updateTab(i)} ></div>}
-                {tab.active && <div className={styles["circle-active"]}></div>}
+                {!tab.active && <div id={tab.id} className={styles[`circle-${tab.status}`]} onClick={()=>updateTab(i)} ></div>}
+                {tab.active && <div id={tab.id} className={styles["circle-active"]}></div>}
                 <p> {tab.description}</p>
             </div>
           )}
