@@ -32,6 +32,24 @@ export const ArtistInfo = (dbUpdate: (value: object) => Promise<void>) => {
 
 
             </div>
+            <div role="group" aria-labelledby="my-radio-group">
+                <label>
+                <Field type="radio" name="type" value="profArtist" />
+                I am a professional artist. 
+                </label>
+                <label>
+                <Field type="radio" name="type" value="hobbyToProf" />
+                I create art as a hobby but would like to turn professional someday. 
+                </label>
+                <label>
+                <Field type="radio" name="type" value="hobby" />
+                I create art as a hobby and that’s how I like it.
+                </label>
+                <label>
+                <Field type="radio" name="type" value="other" />
+                Other
+                </label>
+          </div>
             <button className={styles["submitButton"]} type="submit">
                 Submit
             </button>
