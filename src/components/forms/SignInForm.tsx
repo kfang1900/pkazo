@@ -5,7 +5,6 @@ import { signIn, signInWithGoogle, signInWithFacebook } from 'api/auth/firebaseA
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import googleLogo from 'assets/auth/googleLoginLogo.svg'
 import styles from 'styles/forms/SignInForm.module.scss';
-import { useNavigate } from 'react-router-dom';
 
 interface SignInErrors {
     email?: string;
@@ -17,16 +16,10 @@ interface SignInFormProps {
 }
 
 const SignInForm = ({ onSignIn }: SignInFormProps ) => {
-    const navigate = useNavigate();
 
     const googleSignIn = () => {
         signInWithGoogle().then((isNewUser) => {
-            //If the user is a new user, bring them to finish registration
-            if(isNewUser) {
-                navigate('/setupShop')
-            } else {
-                onSignIn();
-            }
+            onSignIn();
         }
         );
     }
