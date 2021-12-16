@@ -1,9 +1,8 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
-import { createAccount } from 'api/auth/firebaseAuthApi';
+import { createAccount, signIn } from 'api/auth/firebaseAuthApi';
 
 import styles from 'styles/forms/RegisterForm.module.scss';
 
@@ -13,9 +12,11 @@ interface RegisterErrors {
     password?: string;
 }
 
-const RegisterForm = () => {
+interface RegisterFormProps {
+    onRegister: () => void;
+}
 
-    const navigate = useNavigate();
+const RegisterForm = ({onRegister}: RegisterFormProps) => {
 
     return (<Formik
         initialValues={{ email: '', firstName: '', password: '' }}
@@ -37,10 +38,11 @@ const RegisterForm = () => {
             return errors;
         }}
         onSubmit={async (values, { setFieldError }) => {
-            //Attemps to validate the registration
+            //Attemps to validate the registration and sign in
             try {
                 await createAccount(values.email, values.password);
-                navigate('/setupShop');
+                await signIn(values.email, values.password);
+                onRegister();
             } catch (error: any) {
                 switch (error.code) {
                     case "auth/email-already-in-use": {

@@ -9,12 +9,15 @@ import SignInModal from 'components/homepage/SignInModal';
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 
 import styles from 'styles/common/Header.module.scss';
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
 
   const [isSignedIn, setIsSignedIn] = React.useState(false);
   // Should we show the sign in modal?
   const [showSignInModal, setShowSignInModal] = useState(false);
+
+  const navigate = useNavigate();
 
   const auth = getAuth();
   onAuthStateChanged(auth, (user) => {
@@ -61,7 +64,7 @@ const Header = () => {
           placeholder="Search By artists, style, theme, tag, location, etc."
         />
         <div className={styles['headerTopRowRight']}>
-          <button className={styles['sellButton']}>
+          <button onClick={() => navigate('/setupShop')} className={styles['sellButton']}>
             Sell on Pkazo
           </button>
           {signInButton()}

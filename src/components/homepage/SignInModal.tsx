@@ -40,7 +40,7 @@ const SignInModal = ({ closeModal } : SignInModalProps) => {
                         Create your account
                     </h2>
                     Registration is easy.
-                <RegisterForm />
+                <RegisterForm onRegister={closeModal}/>
                 </div>
             }
         </div>
