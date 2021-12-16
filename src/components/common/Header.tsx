@@ -6,10 +6,12 @@ import Logo from 'assets/logo.svg';
 import DimmedOverlay from 'components/common/DimmedOverlay';
 import SignInModal from 'components/homepage/SignInModal';
 
-import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
+import { getAuth, onAuthStateChanged, signOut, User } from 'firebase/auth';
 
 import styles from 'styles/common/Header.module.scss';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
+import { Dropdown } from 'react-bootstrap';
 
 const Header = () => {
 
@@ -17,14 +19,18 @@ const Header = () => {
   // Should we show the sign in modal?
   const [showSignInModal, setShowSignInModal] = useState(false);
 
+  const [signedInUser, setSignedInUser] = useState<User | null>(null);
+
   const navigate = useNavigate();
 
   const auth = getAuth();
   onAuthStateChanged(auth, (user) => {
     if (user) {
       setIsSignedIn(true);
+      setSignedInUser(auth.currentUser);
     } else {
       setIsSignedIn(false);
+      setSignedInUser(null);
     }
   });
 
@@ -33,7 +39,7 @@ const Header = () => {
     'Drawing', 'Mixed', 'Fiber'
   ];
 
-  const signInButton = () => {
+  const userButton = () => {
     if(!isSignedIn) {
       return (
         <div className={styles['signIn']} onClick={() => setShowSignInModal(true)}>
@@ -43,9 +49,14 @@ const Header = () => {
     }
     else {
       return (
-        <div className={styles['signIn']} onClick={() => signOut(getAuth())}>
-          Log out
-        </div>
+        <Dropdown>
+          <Dropdown.Toggle className={styles['sellButton']}>
+            {signedInUser?.displayName ?? "User"}
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            <Dropdown.Item onClick={() => signOut(getAuth())}>Log Out</Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
       )
     }
   };
@@ -67,7 +78,7 @@ const Header = () => {
           <button onClick={() => navigate('/setupShop')} className={styles['sellButton']}>
             Sell on Pkazo
           </button>
-          {signInButton()}
+          {userButton()}
           <img
               alt='logo' 
               className={styles['cart']}
