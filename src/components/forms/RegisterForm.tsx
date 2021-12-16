@@ -40,7 +40,7 @@ const RegisterForm = () => {
             //Attemps to validate the registration
             try {
                 await createAccount(values.email, values.password);
-                navigate('/finishRegistration');
+                navigate('/setupShop');
             } catch (error: any) {
                 switch (error.code) {
                     case "auth/email-already-in-use": {

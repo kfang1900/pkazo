@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 import 'index.css';
 import HomePage from 'components/homepage/HomePage';
-import FinishRegistration from 'components/finishRegistration/FinishRegistration';
+import SetupShop from 'components/setupShop/setupShop';
 
 import { initializeApp } from 'firebase/app';
 
@@ -31,7 +31,7 @@ ReactDOM.render(
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<HomePage />} />
-        <Route path='/finishRegistration' element={<FinishRegistration />} />
+        <Route path='/setupShop' element={<SetupShop />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

@@ -23,7 +23,7 @@ const SignInForm = ({ onSignIn }: SignInFormProps ) => {
         signInWithGoogle().then((isNewUser) => {
             //If the user is a new user, bring them to finish registration
             if(isNewUser) {
-                navigate('/finishRegistration')
+                navigate('/setupShop')
             } else {
                 onSignIn();
             }
