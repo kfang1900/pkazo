@@ -12,12 +12,15 @@ import styles from 'styles/common/Header.module.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
 import { Dropdown } from 'react-bootstrap';
+import EditProfileModal from 'components/homepage/EditProfileModal';
 
 const Header = () => {
 
   const [isSignedIn, setIsSignedIn] = React.useState(false);
   // Should we show the sign in modal?
   const [showSignInModal, setShowSignInModal] = useState(false);
+
+  const [showProfileEditModal, setShowProfileEditModal] = useState(false);
 
   const [signedInUser, setSignedInUser] = useState<User | null>(null);
 
@@ -48,15 +51,22 @@ const Header = () => {
       )
     }
     else {
+      let divStyle = {};
+      if(signedInUser?.photoURL){
+        divStyle = {
+          backgroundImage: 'url(' + signedInUser!.photoURL + ')',
+        };
+      }
       return (
-        <Dropdown>
+        <><div className="user" style={divStyle}></div><Dropdown>
           <Dropdown.Toggle className={styles['sellButton']}>
             {signedInUser?.displayName ?? "User"}
           </Dropdown.Toggle>
           <Dropdown.Menu>
             <Dropdown.Item onClick={() => signOut(getAuth())}>Log Out</Dropdown.Item>
+            <Dropdown.Item onClick={() => setShowProfileEditModal(true)}>Edit Profile</Dropdown.Item>
           </Dropdown.Menu>
-        </Dropdown>
+        </Dropdown></>
       )
     }
   };
@@ -102,6 +112,12 @@ const Header = () => {
         <DimmedOverlay>
           <SignInModal closeModal={() => setShowSignInModal(false)}/>
           </DimmedOverlay>
+      }
+      {
+        showProfileEditModal &&
+        <DimmedOverlay>
+          <EditProfileModal closeModal={() => setShowProfileEditModal(false)}/>
+        </DimmedOverlay>
       }
     </div>
   );
