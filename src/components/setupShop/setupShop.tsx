@@ -55,37 +55,6 @@ const SetupShop = () => {
             active: false,
             content: ArtistInfo
         },
-        {
-            status: "empty",
-            description: "Upload Your Portfolio",
-            id: "portfolio",
-            active: false,
-            content: ArtistInfo
-
-        },
-        {
-            status: "empty",
-            id: "shopStock",
-            description: "Stock Your Shop",
-            active: false,
-            content: ArtistInfo
-
-        },
-        {
-            status: "filled",
-            id: "feedStart",
-            description: "Start Your Feed",
-            active: false,
-            content: ArtistInfo
-        },
-        {
-            status: "empty",
-            id: "payment",
-            description: "How You'll Get Paid",
-            active: false,
-            content: ArtistInfo
-
-        }
    ];
 
 /**
@@ -131,8 +100,8 @@ const SetupShop = () => {
         <div className={styles["statusNavigation"]}>
           {tabs.map((tab, i) => 
             <div className={styles["tab-section-header"]}>
-                {!tab.active && <div id={tab.id} className={styles[`circle-${tab.status}`]} onClick={()=>updateTab(i)} ></div>}
-                {tab.active && <div id={tab.id} className={styles["circle-active"]}></div>}
+                {!tab.active && <div id={tab.id} key={tab.id} className={styles[`circle-${tab.status}`]} onClick={()=>updateTab(i)} ></div>}
+                {tab.active && <div id={tab.id} key={tab.id} className={styles["circle-active"]}></div>}
                 <p> {tab.description}</p>
             </div>
           )}
