@@ -13,11 +13,11 @@ interface ImageUploaderProps {
 }
 
 /**
- * A modal for editing the user's profilem including user image, etc.
+ * A a form for uploading an image
  * 
- * Uses EditProfileForm
+ * Uses UploadImageForm
  * 
- * @see EditProfileForm
+ * @see UploadImageForm
  * 
  * @param closeModal The parameter for closing the modal
  * @returns 
@@ -43,9 +43,9 @@ interface ImageUploadFormProps {
 }
 
 /**
- * An interface for defining the variables located in the state for EditProfileForm
+ * An interface for defining the variables located in the state for UploadImageForm
  * 
- * @see EditProfileForm
+ * @see UploadImageForm
  */
 interface ImageUploadFormState {
     submitting: boolean,
@@ -53,10 +53,10 @@ interface ImageUploadFormState {
 }
 
 /**
- * Displayed in a modal to facilitate the user modifying properties about their profile
+ * Displayed in a modal to facilitate the user uploading an image
  * 
- * @see EditProfileModal
- * @see EditProfileFormState
+ * @see UploadImageModal
+ * @see UploadImageFormState
  */
 class ImageUploadForm extends React.Component<ImageUploadFormProps, ImageUploadFormState> {
 
