@@ -1,4 +1,6 @@
+import { getApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithRedirect, getRedirectResult, FacebookAuthProvider, signInWithPopup, getAdditionalUserInfo } from "firebase/auth";
+import { getDownloadURL, getStorage, ref } from "firebase/storage";
 
 export const createAccount = async (email: string, password: string) => {
     const auth = getAuth();
@@ -59,5 +61,25 @@ export const signInWithFacebook = async () => {
     }
 
     //Adds scopes
+}
+
+/**
+ * Fetches the currently logged in user's profile picture
+ * 
+ * @returns the user's profile picture URL or null if not found
+ */
+export const getProfilePicture = async () => {
+    const auth = getAuth();
+    const app = getApp();
+    const storage = getStorage(app);
+    if(!auth) throw Error("No Auth received");
+    if(!auth.currentUser) throw Error("No user logged in");
+    if(!auth.currentUser.photoURL) throw Error("No photoURL");
+    
+    //Create reference to the user's profile picture
+    const reference = ref(storage, auth.currentUser.photoURL!);
+
+    let url = String(await getDownloadURL(reference));
+    return url
 }
 
