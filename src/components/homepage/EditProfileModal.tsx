@@ -6,6 +6,7 @@ import React, {FormEvent } from 'react';
 import { Spinner } from 'react-bootstrap';
 
 import styles from 'styles/forms/FormModal.module.scss';
+import Cancel from 'assets/cancel.svg';
 
 
 interface EditProfileModalProps {
@@ -15,6 +16,10 @@ interface EditProfileModalProps {
 /**
  * A modal for editing the user's profilem including user image, etc.
  * 
+ * Uses EditProfileForm
+ * 
+ * @see EditProfileForm
+ * 
  * @param closeModal The parameter for closing the modal
  * @returns 
  */
@@ -22,16 +27,34 @@ const EditProfileModal = ({ closeModal }: EditProfileModalProps) => {
 
     return (
         <div className={styles["modal"]}>
-            <EditProfileForm />
+            <div>
+                <EditProfileForm />
+            </div>
+            <img 
+            alt='cancel' 
+            className={styles['cancelIcon']}
+            onClick={closeModal} 
+            src={Cancel}/>
         </div>
     );
 }
 
+/**
+ * An interface for defining the variables located in the state for EditProfileForm
+ * 
+ * @see EditProfileForm
+ */
 interface EditProfileFormState {
     submitting: boolean,
     submitted: boolean,
 }
 
+/**
+ * Displayed in a modal to facilitate the user modifying properties about their profile
+ * 
+ * @see EditProfileModal
+ * @see EditProfileFormState
+ */
 class EditProfileForm extends React.Component<{}, EditProfileFormState> {
 
 
