@@ -119,7 +119,7 @@ export class PortfoiloCreate extends React.Component<PortfolioCreateProps, Portf
             </Form>
         </Formik>
         <ul children={this.state.works.map<JSX.Element>((work) => work.display())}/>
-        <button children={"New Work"} onClick={this.enableWorkCreateModal} disabled={this.state.createWorkEnabled}/>
+        <button children={"New Work"} onClick={this.enableWorkCreateModal} disabled={!this.state.createWorkEnabled}/>
         {this.state.showWorkCreate && <DimmedOverlay children={<WorkCreateModal closeModal={this.disableWorkCreateModal} portfolioURL={this.state.portfolioURL} work={this.state.currentWork}/>}/>}
             </>
     }
