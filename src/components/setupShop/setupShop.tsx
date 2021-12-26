@@ -1,9 +1,9 @@
 import styles from 'styles/setupShop/UpperTabs.module.scss';
+import { doc, getFirestore, setDoc } from "firebase/firestore"; 
 
 import { useState } from 'react';
 import { ArtistInfo } from './setupTabs/ArtistInfo';
 import { getApp } from 'firebase/app';
-import { getDatabase, ref, update } from "firebase/database";
 import { getAuth } from 'firebase/auth';
 
 
@@ -19,9 +19,9 @@ const SetupShop = () => {
     //If there isn't a user, we have issues.
     if(!user) throw Error;
     //Grab the database
-    let db = getDatabase(app);
+    let db = getFirestore(app);
     let addUserInfo = (value: object) => {
-        return update(ref(db, 'users/' + user!.uid), value);
+      return setDoc(doc(db, 'users/' + user!.uid), value)
     }
     //Creates the folder for the user with just the current created time
     addUserInfo({
