@@ -20,6 +20,12 @@ export const ArtistInfo = (dbUpdate: (value: object) => Promise<void>) => {
             </div>
             <div>
                 <label className={styles["label"]}>
+                    Art Discipline
+                </label>
+                <Field name="artDiscipline" className={styles["textInput"]} />
+            </div>
+            <div>
+                <label className={styles["label"]}>
                     Date of Birth
                 </label>
                 <DatePickerField name="dob"></DatePickerField>
@@ -50,6 +56,18 @@ export const ArtistInfo = (dbUpdate: (value: object) => Promise<void>) => {
                 Other
                 </label>
           </div>
+          <div>
+                <label className={styles["label"]}>
+                    Website URL
+                </label>
+                <Field name="artistName" className={styles["textInput"]} />
+            </div>
+            <div>
+                <label className={styles["label"]}>
+                    Instagram Handle
+                </label>
+                <Field name="artistName" className={styles["textInput"]} />
+            </div>
             <button className={styles["submitButton"]} type="submit">
                 Submit
             </button>
