@@ -3,6 +3,7 @@ import { doc, getFirestore, setDoc } from "firebase/firestore";
 import { ArtistInfo } from './setupSections/ArtistInfo';
 import { getApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
+import { PortfoiloCreate } from "components/forms/PortfolioCreate";
 
 
 const SetupShop = () => {
@@ -28,9 +29,12 @@ const SetupShop = () => {
     
 
   return (
-    <div>
+    <><div>
       {ArtistInfo(addUserInfo)}
-    </div>
+    </div><hr />
+    <PortfoiloCreate initialPortfolioName = {user.displayName + "'s Portfolio"} />
+    <div>
+    </div></>
   );
 }
 

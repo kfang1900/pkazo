@@ -60,13 +60,13 @@ export const ArtistInfo = (dbUpdate: (value: object) => Promise<void>) => {
                 <label className={styles["label"]}>
                     Website URL
                 </label>
-                <Field name="artistName" className={styles["textInput"]} />
+                <Field name="websiteURL" className={styles["textInput"]} />
             </div>
             <div>
                 <label className={styles["label"]}>
                     Instagram Handle
                 </label>
-                <Field name="artistName" className={styles["textInput"]} />
+                <Field name="instaHandle" className={styles["textInput"]} />
             </div>
             <button className={styles["submitButton"]} type="submit">
                 Submit

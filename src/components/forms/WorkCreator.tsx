@@ -16,6 +16,7 @@ export class WorkList extends React.Component<{}, WorkListState> {
 
 interface WorkCreatorProps {
     work: Artwork,
+    portfolioUrl: string
 }
 
 interface WorkCreatorState {
@@ -31,7 +32,7 @@ export class WorkCreator extends React.Component<WorkCreatorProps, WorkCreatorSt
         }
     }
 
-    toggleSignInModal = () => {
+    toggleUploadModal = () => {
         this.setState((oldState) => {
           let newState = {...oldState, showImageUpload: !oldState.showImageUpload};
           return newState;
@@ -43,10 +44,10 @@ export class WorkCreator extends React.Component<WorkCreatorProps, WorkCreatorSt
         let work = this.props.work;
         const url = user!.uid + '/' + work.uniqueId;
         return <>
-            <h2>{work.name}</h2>
+            <h2>{work.workName}</h2>
             <Carousel children={work.workImages}/>
             { this.state.showImageUpload &&
-            <DimmedOverlay children={<ImageUploader uploadUrl={url} closeModal={this.toggleSignInModal}/>}/>
+            <DimmedOverlay children={<ImageUploader uploadUrl={url} closeModal={this.toggleUploadModal}/>}/>
             }
         </>
     }

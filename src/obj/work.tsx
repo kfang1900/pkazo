@@ -4,20 +4,26 @@ import { Carousel } from "react-bootstrap";
  * A class representing a piece of art, holding descriptions, images, etc.
  */
 export class Artwork {
-    constructor(name: string | null) {
+    constructor(workName: string | null) {
         this.workImages = [];
         this.uniqueId = null;
-        this.name = name ?? "New Work";
+        this.workName = workName ?? "New Work";
     }
     public workImages: workImage[];
-    public name: string;
+    public workName: string;
     public uniqueId: string | null;
 
     toMap() {
         return {
-            name: this.name,
+            name: this.workName,
             photoUrls: this.workImages
         }
+    }
+
+    display() {
+        return <>
+        <img src={this.workImages[0].photoURL} alt="Work 1"/>
+        </>
     }
 }
 
