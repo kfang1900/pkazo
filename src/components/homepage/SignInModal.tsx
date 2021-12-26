@@ -49,8 +49,7 @@ const SignInModal = ({ closeModal } : SignInModalProps) => {
             className={styles['cancelIcon']}
             onClick={closeModal} 
             src={Cancel}
-        >
-        </img>
+        />
     </div>
   );
 }

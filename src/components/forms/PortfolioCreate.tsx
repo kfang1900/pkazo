@@ -5,7 +5,7 @@ import { Field, Form, Formik, } from "formik";
 import { Artwork } from "obj/work";
 import React from "react"; 
 import styles from 'styles/forms/AboutYouForm.module.scss';
-import { WorkCreator } from "./WorkCreator";
+import { WorkCreateModal} from "./WorkCreator";
 
 interface PortfolioCreateProps {
     initialPortfolioName: string
@@ -18,6 +18,7 @@ interface PortfolioCreateState {
     createWorkEnabled: boolean,
     portfolioURL: string,
     showWorkCreate: boolean,
+    portfolioProps: PortfolioProps,
 }
 
 interface PortfolioProps {
@@ -37,6 +38,7 @@ export class PortfoiloCreate extends React.Component<PortfolioCreateProps, Portf
         let submitPortfolio = (values: PortfolioProps) => {
             this.setState((oldState) => {
                 let newState = {...oldState, 
+                    portfolioProps: values,
                     portfolioURL: 'users/' + user!.uid + "/portfolios/" + values.title,
                     createWorkEnabled: true};
                 return newState;
@@ -44,6 +46,12 @@ export class PortfoiloCreate extends React.Component<PortfolioCreateProps, Portf
               return setDoc(doc(db, 'users/' + user!.uid + "/portfolios/" + values.title), values)
           }
         this.state = {
+            portfolioProps: {
+                title: props.initialPortfolioName,
+                medium: "",
+                subject: "",
+                style: ""
+            },
             portfolioURL: "",
             showWorkCreate: false,
             submitPortfolio: submitPortfolio,
@@ -54,13 +62,23 @@ export class PortfoiloCreate extends React.Component<PortfolioCreateProps, Portf
 
     }
 
-    toggleWorkCreateModal() {
+    enableWorkCreateModal() {
         this.setState((oldState) => {
             let newState = {...oldState, 
-                showWorkCreate: !oldState.showWorkCreate
+                currentWork: new Artwork("New " + this.state.portfolioProps.title + " work"),
+                showWorkCreate: true
                 };
             return newState;
           });            
+    }
+
+    disableWorkCreateModal() {
+        this.setState((oldState) => {
+            let newState = {...oldState, 
+                showWorkCreate: false
+                };
+            return newState;
+          });    
     }
     
 
@@ -68,12 +86,7 @@ export class PortfoiloCreate extends React.Component<PortfolioCreateProps, Portf
         return <>
         <Formik
         onSubmit={this.state.submitPortfolio}
-        initialValues={{
-            title: this.props.initialPortfolioName,
-            medium: '',
-            subject: '',
-            style: ''
-        }}
+        initialValues={this.state.portfolioProps}
         >
             <Form>
                 <div>
@@ -106,8 +119,8 @@ export class PortfoiloCreate extends React.Component<PortfolioCreateProps, Portf
             </Form>
         </Formik>
         <ul children={this.state.works.map<JSX.Element>((work) => work.display())}/>
-        <button children={"New Work"} onClick={this.toggleWorkCreateModal} disabled={this.state.createWorkEnabled}/>
-        {this.state.showWorkCreate && <DimmedOverlay children={<WorkCreator work={this.state.currentWork} portfolioUrl={this.state.portfolioURL} />}/>}
+        <button children={"New Work"} onClick={this.enableWorkCreateModal} disabled={this.state.createWorkEnabled}/>
+        {this.state.showWorkCreate && <DimmedOverlay children={<WorkCreateModal closeModal={this.disableWorkCreateModal} portfolioURL={this.state.portfolioURL} work={this.state.currentWork}/>}/>}
             </>
     }
 }

@@ -4,6 +4,10 @@ import { getAuth } from "firebase/auth";
 import { Artwork } from "obj/work";
 import React from "react";
 import { Carousel } from "react-bootstrap";
+import styles from 'styles/homepage/SignInModal.module.scss';
+import Cancel from 'assets/cancel.svg';
+
+
 
 interface WorkListState{
     userWorks: Artwork[],
@@ -53,3 +57,23 @@ export class WorkCreator extends React.Component<WorkCreatorProps, WorkCreatorSt
     }
 }
 
+interface WorkCreateProps{
+    closeModal: () => void
+    work: Artwork,
+    portfolioURL: string,
+}
+export class WorkCreateModal extends React.Component<WorkCreateProps, {}>{
+    render() {
+        return <div className={styles["modal"]}>
+            <div>
+                <WorkCreator work={this.props.work} portfolioUrl={this.props.portfolioURL} />
+            </div>
+                    <img 
+            alt='cancel' 
+            className={styles['cancelIcon']}
+            onClick={this.props.closeModal} 
+            src={Cancel}
+        />
+        </div>
+    }
+}
