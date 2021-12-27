@@ -1,10 +1,13 @@
 import { getApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithRedirect, getRedirectResult, FacebookAuthProvider, signInWithPopup, getAdditionalUserInfo } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithRedirect, getRedirectResult, FacebookAuthProvider, signInWithPopup, getAdditionalUserInfo, updateProfile } from "firebase/auth";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
 
-export const createAccount = async (email: string, password: string) => {
+export const createAccount = async (email: string, password: string, displayName: string) => {
     const auth = getAuth();
-    await createUserWithEmailAndPassword(auth, email, password);
+    let user = await (await createUserWithEmailAndPassword(auth, email, password)).user;
+    updateProfile(user, {
+        'displayName' : displayName
+    });
 };
 
 export const signIn = async (email: string, password: string) => {
@@ -72,14 +75,18 @@ export const getProfilePicture = async () => {
     const auth = getAuth();
     const app = getApp();
     const storage = getStorage(app);
-    if(!auth) throw Error("No Auth received");
-    if(!auth.currentUser) throw Error("No user logged in");
-    if(!auth.currentUser.photoURL) throw Error("No photoURL");
-    
-    //Create reference to the user's profile picture
-    const reference = ref(storage, auth.currentUser.photoURL!);
+    try {
+        if(!auth) throw new Error("No Auth received");
+        if(!auth.currentUser) throw new Error("No user logged in");
+        if(!auth.currentUser.photoURL) throw new Error("No photoURL");
+        //Create reference to the user's profile picture
+        const reference = ref(storage, auth.currentUser.photoURL!);
 
-    let url = String(await getDownloadURL(reference));
-    return url
+        let url = String(await getDownloadURL(reference));
+        return url
+    } catch (error) {
+        console.log("ProfPic Error: " + error);
+        return "";
+    }
 }
 

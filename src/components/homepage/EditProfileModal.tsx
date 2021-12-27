@@ -28,12 +28,12 @@ const EditProfileModal = ({ closeModal }: EditProfileModalProps) => {
     let auth = getAuth(app);
     let user = auth.currentUser;
     //Sets up the image reference
-    let url = user!.uid+'/profPic';
+    let url = "users/" + user!.uid+'/profPic';
 
     return (
         <div className={styles["modal"]}>
             <div>
-                <ImageUploader closeModal={closeModal} uploadUrl={url} />
+                <ImageUploader closeModal={closeModal} uploadUrl={url} postUpload={null} />
             </div>
             <img 
             alt='cancel' 

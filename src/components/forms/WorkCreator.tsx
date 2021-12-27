@@ -1,11 +1,11 @@
 import DimmedOverlay from "components/common/DimmedOverlay";
 import ImageUploader from "components/common/ImageUploader";
-import { getAuth } from "firebase/auth";
-import { Artwork } from "obj/work";
+import { Artwork, workImage } from "obj/work";
 import React from "react";
 import { Carousel } from "react-bootstrap";
 import styles from 'styles/homepage/SignInModal.module.scss';
 import Cancel from 'assets/cancel.svg';
+import { getFirestore, setDoc, doc } from "firebase/firestore";
 
 
 
@@ -25,6 +25,7 @@ interface WorkCreatorProps {
 
 interface WorkCreatorState {
     showImageUpload: boolean,
+    currentImageURL: string,
 }
 
 export class WorkCreator extends React.Component<WorkCreatorProps, WorkCreatorState> {
@@ -32,26 +33,35 @@ export class WorkCreator extends React.Component<WorkCreatorProps, WorkCreatorSt
     constructor(props: WorkCreatorProps, state: WorkCreatorState) {
         super(props, state);
         this.state = {
+            currentImageURL: this.props.portfolioUrl + "/" + this.props.work.workName + "/" + this.props.work.workImages.length,
             showImageUpload: false,
         }
     }
 
+    uploadWork = () => {
+        let fs = getFirestore();
+        setDoc(doc(fs, this.props.portfolioUrl + this.props.work.workName), this.props.work.toMap)
+    }
+
     toggleUploadModal = () => {
         this.setState((oldState) => {
-          let newState = {...oldState, showImageUpload: !oldState.showImageUpload};
-          return newState;
+            let newURL = this.props.portfolioUrl + "/" + this.props.work.workImages.length;
+            let newState = {...oldState, showImageUpload: !oldState.showImageUpload, currentImageURL: newURL};
+            return newState;
         });
       }
 
     render() {
-        const user = getAuth().currentUser;
+        let postUpload = async () => {
+            this.props.work.workImages.push(new workImage(this.state.currentImageURL, null));
+        };
         let work = this.props.work;
-        const url = user!.uid + '/' + work.uniqueId;
         return <>
             <h2>{work.workName}</h2>
             <Carousel children={work.workImages}/>
+            <button onClick={this.toggleUploadModal}>Upload Image</button>
             { this.state.showImageUpload &&
-            <DimmedOverlay children={<ImageUploader uploadUrl={url} closeModal={this.toggleUploadModal}/>}/>
+            <DimmedOverlay children={<ImageUploader uploadUrl={this.state.currentImageURL} closeModal={this.toggleUploadModal} postUpload={postUpload}/>}/>
             }
         </>
     }

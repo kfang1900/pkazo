@@ -44,7 +44,9 @@ class Header extends React.Component<HeaderProps, HeaderState> {
 
   onAuthChange = async (user: User| null) => {
     let url = null;
-    if(user) url = await getProfilePicture();
+    if(user) {
+      url = await getProfilePicture();
+    }
     this.setUser(user, url)
   }
 

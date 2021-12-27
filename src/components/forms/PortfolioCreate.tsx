@@ -62,7 +62,7 @@ export class PortfoiloCreate extends React.Component<PortfolioCreateProps, Portf
 
     }
 
-    enableWorkCreateModal() {
+    enableWorkCreateModal = () => {
         this.setState((oldState) => {
             let newState = {...oldState, 
                 currentWork: new Artwork("New " + this.state.portfolioProps.title + " work"),
@@ -72,7 +72,7 @@ export class PortfoiloCreate extends React.Component<PortfolioCreateProps, Portf
           });            
     }
 
-    disableWorkCreateModal() {
+    disableWorkCreateModal = () => {
         this.setState((oldState) => {
             let newState = {...oldState, 
                 showWorkCreate: false

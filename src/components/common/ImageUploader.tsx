@@ -8,6 +8,7 @@ import Cancel from 'assets/cancel.svg';
 
 
 interface ImageUploaderProps {
+    postUpload: (() => Promise<void>) | null,
     closeModal: () => void,
     uploadUrl: string
 }
@@ -27,7 +28,7 @@ const ImageUploader = (props: ImageUploaderProps) => {
     return (
         <div className={styles["modal"]}>
             <div>
-                <ImageUploadForm uploadUrl={props.uploadUrl} />
+                <ImageUploadForm uploadUrl={props.uploadUrl} postUpload={props.postUpload} />
             </div>
             <img 
             alt='cancel' 
@@ -39,6 +40,7 @@ const ImageUploader = (props: ImageUploaderProps) => {
 }
 
 interface ImageUploadFormProps {
+    postUpload: (() => Promise<void>) | null,
     uploadUrl: string
 }
 
@@ -93,6 +95,7 @@ class ImageUploadForm extends React.Component<ImageUploadFormProps, ImageUploadF
         let pic = this.fileInput.current!.files![0];
         //Uploads the image
         this.result = await uploadBytes(imageRef, pic);
+        if(this.props.postUpload) await this.props.postUpload;
         this.setState((state) => {
             return {
                 submitting: false,

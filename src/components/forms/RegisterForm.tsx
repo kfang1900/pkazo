@@ -40,7 +40,7 @@ const RegisterForm = ({onRegister}: RegisterFormProps) => {
         onSubmit={async (values, { setFieldError }) => {
             //Attemps to validate the registration and sign in
             try {
-                await createAccount(values.email, values.password);
+                await createAccount(values.email, values.password, values.firstName);
                 await signIn(values.email, values.password);
                 onRegister();
             } catch (error: any) {
