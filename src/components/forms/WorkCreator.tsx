@@ -40,7 +40,7 @@ export class WorkCreator extends React.Component<WorkCreatorProps, WorkCreatorSt
 
     uploadWork = () => {
         let fs = getFirestore();
-        setDoc(doc(fs, this.props.portfolioUrl + this.props.work.workName), this.props.work.toMap)
+        setDoc(doc(fs, this.props.portfolioUrl + "/" + this.props.work.workName), this.props.work.toMap())
     }
 
     toggleUploadModal = () => {
@@ -52,17 +52,20 @@ export class WorkCreator extends React.Component<WorkCreatorProps, WorkCreatorSt
       }
 
     render() {
-        let postUpload = async () => {
-            this.props.work.workImages.push(new workImage(this.state.currentImageURL, null));
+        let postUpload = async (url: string) => {
+            debugger;
+            this.props.work.workImages.push(new workImage(url, null));
         };
         let work = this.props.work;
+        debugger;
         return <>
             <h2>{work.workName}</h2>
-            <Carousel children={work.workImages}/>
+            <Carousel children={work.workImages.map<JSX.Element>((img) => img.toCarouselItem())}/>
             <button onClick={this.toggleUploadModal}>Upload Image</button>
             { this.state.showImageUpload &&
             <DimmedOverlay children={<ImageUploader uploadUrl={this.state.currentImageURL} closeModal={this.toggleUploadModal} postUpload={postUpload}/>}/>
             }
+            <button onClick={this.uploadWork}>Upload Work</button>
         </>
     }
 }

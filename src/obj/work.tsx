@@ -16,7 +16,7 @@ export class Artwork {
     toMap() {
         return {
             name: this.workName,
-            photoUrls: this.workImages
+            photoUrls: this.workImages.map((img) => img.toMap())
         }
     }
 
@@ -36,8 +36,15 @@ export class workImage {
     public photoURL: string;
     public description: string | null;
 
+    toMap(){
+        return {
+            url: this.photoURL,
+            desc: this.description,
+        }
+    }
+
     toCarouselItem() {
-        <Carousel.Item>
+        return <Carousel.Item>
             <img
                 className="d-block w-100"
                 src={this.photoURL}

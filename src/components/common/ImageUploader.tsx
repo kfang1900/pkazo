@@ -1,4 +1,4 @@
-import { getStorage, ref, uploadBytes, UploadResult } from "firebase/storage";
+import { getDownloadURL, getStorage, ref, uploadBytes, UploadResult } from "firebase/storage";
 
 import React, {FormEvent } from 'react';
 import { Spinner } from 'react-bootstrap';
@@ -8,7 +8,7 @@ import Cancel from 'assets/cancel.svg';
 
 
 interface ImageUploaderProps {
-    postUpload: (() => Promise<void>) | null,
+    postUpload: ((url: string) => Promise<void>) | null,
     closeModal: () => void,
     uploadUrl: string
 }
@@ -40,7 +40,7 @@ const ImageUploader = (props: ImageUploaderProps) => {
 }
 
 interface ImageUploadFormProps {
-    postUpload: (() => Promise<void>) | null,
+    postUpload: ((url: string) => Promise<void>) | null,
     uploadUrl: string
 }
 
@@ -95,7 +95,9 @@ class ImageUploadForm extends React.Component<ImageUploadFormProps, ImageUploadF
         let pic = this.fileInput.current!.files![0];
         //Uploads the image
         this.result = await uploadBytes(imageRef, pic);
-        if(this.props.postUpload) await this.props.postUpload;
+        let url = await getDownloadURL(imageRef);
+        debugger;
+        if(this.props.postUpload != null) await this.props.postUpload(url);
         this.setState((state) => {
             return {
                 submitting: false,
