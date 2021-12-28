@@ -4,6 +4,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 import { createAccount, signIn } from 'api/auth/firebaseAuthApi';
 
+import googleLogo from 'assets/auth/googleLoginLogo.svg'
 import styles from 'styles/forms/RegisterForm.module.scss';
 
 interface RegisterErrors {
@@ -18,8 +19,9 @@ interface RegisterFormProps {
 
 const RegisterForm = ({onRegister}: RegisterFormProps) => {
 
-    return (<Formik
+    return (<><Formik
         initialValues={{ email: '', firstName: '', password: '' }}
+        validateOnChange={false}
         validate={values => {
             const errors: RegisterErrors = {};
             if (!values.email) {
@@ -60,7 +62,7 @@ const RegisterForm = ({onRegister}: RegisterFormProps) => {
                 }
             }
         }}
-    >   
+    >
         { ({isSubmitting}) => (
             <Form>
                 <label className={`${styles['label']} ${styles['requiredFieldLabel']}`}>
@@ -90,12 +92,26 @@ const RegisterForm = ({onRegister}: RegisterFormProps) => {
                         <ErrorMessage name="password" />
                     </div>
                 </div>
-                <button className={styles["submitButton"]} type="submit" disabled={isSubmitting}>
-                    Register
+                <button className={styles["loginButton"]} type="submit" disabled={isSubmitting}>
+                    Create Account
                 </button>
             </Form>
-        )}    
+        )}
     </Formik>
+    <div>
+        <div style = {{marginTop:"12px"}}>
+            <hr className={styles["lineBreak"]} style = {{float:"left"}}/>
+            <hr className={styles["lineBreak"]} style = {{float:"right"}}/>
+            <p className={styles["textBreak"]}>Or</p>
+        </div>
+        <button className={styles["continueButton"]}>
+            <img alt = "Google icon" src={googleLogo}/>Register with Google
+        </button>
+        <button className={styles["continueButton"]}>
+            Register with Facebook
+        </button>
+    </div>
+    </>
   );
 }
 

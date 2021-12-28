@@ -39,7 +39,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
 
 
   componentDidMount() {
-    getAuth().onAuthStateChanged((user) => this.onAuthChange(user)); 
+    getAuth().onAuthStateChanged((user) => this.onAuthChange(user));
   }
 
   onAuthChange = async (user: User| null) => {
@@ -51,7 +51,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
   }
 
   navigationCategories = [
-    'Explore Artists', 'Painting', 'Photography', 'Print', 'Sculpture', 'Glass', 
+    'Explore Artists', 'Painting', 'Photography', 'Print', 'Sculpture', 'Glass',
     'Drawing', 'Mixed', 'Fiber'
   ];
 
@@ -129,7 +129,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
         <input
           className={styles['searchBar']}
           type="text"
-          placeholder="Search By artists, style, theme, tag, location, etc." />
+          placeholder="Search by artists, style, theme, tag, location, etc." />
         <div className={styles['headerTopRowRight']}>
           <button onClick={() => this.props.navigate('/setupShop')} className={styles['sellButton']}>
             Sell on Pkazo

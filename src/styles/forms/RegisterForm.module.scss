@@ -1,40 +1,107 @@
 .error {
     color: #a61a2e;
-    font-size: 16px;
-    margin-top: 6px;
+    font-size: 12px;
+    margin-top: 2px;
 }
 
 .textInput {
+    // position: absolute;
+    // width: 336px;
+    height: 48px;
+    // left: 32px;
+    // top: 157px;
+
+    border: 1px solid #D8D8D8;
     box-sizing: border-box;
-    border: 1px solid silver;
     border-radius: 6px;
+    padding: 10px;
+    margin-top: 5px;
+
     font-size: 16px;
     line-height: 28px;
     width: 100%;
 }
 
 .label {
-    display: inline-block;
-    font-size: 12px;
-    font-weight: 450;
+    // position: absolute;
+    height: 22px;
+    // left: 32px;
+    // top: 127px;
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+
+    display: flex;
+    align-items: center;
+
+    color: #333333;
     margin-top: 12px;
 }
 
-.submitButton {
-    background-color: rgb(59, 59, 59);
-    border: 1px solid rgb(59, 59, 59);
-    border-radius: 24px;
+.loginButton {
+    background-color: #333333;
+    border-radius: 56px;
+    height: 56px;
+    border: none;
+    outline: none;
+
     color: white;
     font-size: 16px;
-    font-weight: 500;
-    min-height: 28px;
+    font-weight: 600;
     margin-top: 12px;
-    padding: 8px;
     width: 100%;
 
     &:hover {
+        background-color: #3f3f3f;
         cursor: pointer;
     }
+}
+
+.continueButton {
+    background-color: white;
+    border: 1px solid #D8D8D8;
+    border-radius: 52px;
+    height: 56px;
+
+    box-sizing: border-box;
+
+    color: black;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 12px;
+    width: 100%;
+
+    &:hover {
+        background-color: #F3F3F3;
+        cursor: pointer;
+    }
+}
+
+.lineBreak {
+    width: 120px;
+    height: 0px;
+    border: 1px solid #F1F2F3;
+}
+
+.textBreak {
+    // position: absolute;
+    margin:0 auto;
+    width: 16px;
+    // height: 17px;
+    // left: 192px;
+    // top: 426px;
+
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 30px;
+
+    align-items: center;
+    text-align: center;
+
+    color: #98989E;
 }
 
 .requiredFieldLabel {

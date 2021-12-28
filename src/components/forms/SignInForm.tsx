@@ -24,9 +24,9 @@ const SignInForm = ({ onSignIn }: SignInFormProps ) => {
         );
     }
 
-    return (
-    <><Formik
+    return (<><Formik
             initialValues={{ email: '', password: '' }}
+            validateOnChange={false}
             validate={(values) => {
                 const errors: SignInErrors = {};
                 if (!values.email) {
@@ -80,35 +80,30 @@ const SignInForm = ({ onSignIn }: SignInFormProps ) => {
                             <ErrorMessage name="password" />
                         </div>
                     </div>
-                    <button className={styles["submitButton"]} type="submit" disabled={isSubmitting}>
+                    <button className={styles["loginButton"]} type="submit" disabled={isSubmitting}>
                         Sign in
                     </button>
-
                 </Form>
             )}
-        </Formik>            
-        <table style={{display: 'flex',  justifyContent:'center', alignItems:'stretch'}}>
-            <tbody>
-                <tr>
-                    <td>
-                <button onClick={googleSignIn} className={styles["submitButton"]}>
-                    Sign in with Google
-                </button>
-                </td>
-                <td>
-                <button onClick={signInWithFacebook} className={styles["submitButton"]}>
-                    Sign in with Facebook
-                </button>
-                </td>
-                </tr>
-            </tbody>
-        </table>
+        </Formik>
+        <div>
+            <div style = {{marginTop:"12px"}}>
+                <hr className={styles["lineBreak"]} style = {{float:"left"}}/>
+                <hr className={styles["lineBreak"]} style = {{float:"right"}}/>
+                <p className={styles["textBreak"]}>Or</p>
+            </div>
+            <button onClick={googleSignIn} className={styles["continueButton"]}>
+                <img alt = "Google icon" src={googleLogo}/>Continue with Google
+            </button>
+            <button onClick={signInWithFacebook} className={styles["continueButton"]}>
+                Continue with Facebook
+            </button>
+        </div>
       </>
 
 
-    
+
   );
 }
 
 export default SignInForm;
-
