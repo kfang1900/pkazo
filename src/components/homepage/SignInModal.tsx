@@ -35,8 +35,10 @@ const SignInModal = ({ closeModal } : SignInModalProps) => {
                     <div className = {styles["headerPrimary"]}>Join the community</div>
                     <RegisterForm onRegister={closeModal}/>
                     <div className = {styles["subText"]} style={{fontWeight:"normal",color:"#595959"}}>
+                      { /* eslint-disable-next-line jsx-a11y/anchor-is-valid, no-script-url */ }
                       By clicking Create Account or Continue with Google or Facebook, you agree to <a href="javascript:void(0)" style={{color:"inherit"}}>
                         Pkazo’s Terms of Use
+                      { /* eslint-disable-next-line jsx-a11y/anchor-is-valid, no-script-url */ }
                       </a> and <a href="javascript:void(0)" style={{color:"inherit"}}>
                         Privacy Policy
                       </a>. Pkazo may send you communications; you may change your preferences in your account settings.
