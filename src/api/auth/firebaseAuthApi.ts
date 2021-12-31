@@ -90,3 +90,20 @@ export const getProfilePicture = async () => {
     }
 }
 
+export const loadStorageImage = async (photoURL:string) => {
+    const auth = getAuth();
+    const app = getApp();
+    const storage = getStorage(app);
+    try {
+        console.log(photoURL)
+        //Create reference to the user's profile picture
+        const reference = ref(storage, photoURL)
+
+        let url = String(await getDownloadURL(reference));
+        return url
+    } catch (error) {
+        console.log("ProfPic Error: " + error);
+        return "";
+    }
+}
+
