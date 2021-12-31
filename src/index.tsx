@@ -8,6 +8,7 @@ import {
 import 'index.css';
 import HomePage from 'components/homepage/HomePage';
 import SetupShop from 'components/setupShop/setupShop';
+import {ArtistProfile} from 'components/Profiles/Artist';
 
 import { initializeApp } from 'firebase/app';
 
@@ -23,6 +24,8 @@ const firebaseConfig = {
   measurementId: process.env.REACT_APP_MEASUREMENT_ID
 };
 
+console.log(firebaseConfig)
+
 // Initialize Firebase
 initializeApp(firebaseConfig);
 
@@ -32,6 +35,7 @@ ReactDOM.render(
       <Routes>
         <Route path='/' element={<HomePage />} />
         <Route path='/setupShop' element={<SetupShop />} />
+        <Route path='/profile/:artist_id' element={<ArtistProfile />}/>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
