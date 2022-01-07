@@ -91,7 +91,6 @@ export const getProfilePicture = async () => {
 }
 
 export const loadStorageImage = async (photoURL:string) => {
-    const auth = getAuth();
     const app = getApp();
     const storage = getStorage(app);
     try {
