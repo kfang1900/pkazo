@@ -21,7 +21,21 @@ const SignInForm = ({ onSignIn }: SignInFormProps ) => {
         signInWithGoogle().then((isNewUser) => {
             onSignIn();
         }
-        );
+        ).catch((error) => {
+            switch (error.code){
+                case "auth/cancelled-popup-request": {
+                    //Do nothing
+                    break;
+                }
+                case "auth/popup-closed-by-user": {
+                    //Do nothing
+                    break;
+                }
+                default: {
+                    throw error;
+                }
+            }
+        });
     }
 
     return (<><Formik
