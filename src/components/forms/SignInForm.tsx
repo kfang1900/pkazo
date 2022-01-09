@@ -23,7 +23,21 @@ const SignInForm = ({ onSignIn }: SignInFormProps ) => {
         signInWithGoogle().then((isNewUser) => {
             onSignIn();
         }
-        );
+        ).catch((error) => {
+            switch (error.code){
+                case "auth/cancelled-popup-request": {
+                    //Do nothing
+                    break;
+                }
+                case "auth/popup-closed-by-user": {
+                    //Do nothing
+                    break;
+                }
+                default: {
+                    throw error;
+                }
+            }
+        });
     }
 
     const [showPassword, setShowPassword] = useState(false);
@@ -106,7 +120,7 @@ const SignInForm = ({ onSignIn }: SignInFormProps ) => {
                 <p className={styles["textBreak"]}>Or</p>
             </div>
             <button onClick={googleSignIn} className={styles["continueButton"]}>
-                <img alt = "Google icon" src={googleLogo}/>Continue with Google
+                <img alt = "Google icon" src={googleLogo} width={50} height={50}/>Continue with Google
             </button>
             <button onClick={signInWithFacebook} className={styles["continueButton"]}>
                 Continue with Facebook
