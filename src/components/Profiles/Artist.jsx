@@ -3,6 +3,10 @@ import { getApp } from 'firebase/app';
 import { doc, getDoc, getFirestore } from "firebase/firestore";
 import { useParams } from 'react-router';
 import { loadStorageImage } from 'api/auth/firebaseAuthApi';
+import Header from 'components/common/Header';
+import { useNavigate } from 'react-router-dom';
+
+
 
 
 export const ArtistProfile = () => {
@@ -17,7 +21,7 @@ export const ArtistProfile = () => {
     useEffect(() => {
       (async () => { 
         //Get that document from the database
-        const docRef = doc(db, "Artists", artist_id);
+        const docRef = doc(db, "Users", artist_id);
         const ref = await getDoc(docRef);
         setData(ref.data());
         const imref = await loadStorageImage(ref.data()["ProfilePicture"]);
@@ -26,6 +30,8 @@ export const ArtistProfile = () => {
     }, [artist_id, db]);
 
     return (
+      <>
+      <Header navigate={useNavigate()} />
       <div>
         <div className="blog-container">
           <img alt="avatar" src={picture}></img>
@@ -33,5 +39,6 @@ export const ArtistProfile = () => {
           <p>{artistData.Bio}</p>
         </div>
       </div>
+      </>
     );
   }

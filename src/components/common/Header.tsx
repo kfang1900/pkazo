@@ -111,7 +111,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
           </Dropdown.Toggle>
           <Dropdown.Menu>
             <Dropdown.Item onClick={() => signOut(getAuth())}>Log Out</Dropdown.Item>
-            <Dropdown.Item onClick={this.toggleProfileModal}>Edit Profile</Dropdown.Item>
+            <Dropdown.Item onClick={() => this.props.navigate('/profile/' + this.state.currentUser!.uid)}>Profile</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown></>
       )

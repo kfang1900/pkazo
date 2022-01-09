@@ -16,7 +16,7 @@ const SetupShop = () => {
     //Grab the user from the app
     let user = getAuth(app).currentUser;
     //If there isn't a user, we have issues.
-    if(!user) throw Error;
+    if(!user) Error('No user currently logged in.');
     //Grab the database
     let db = getFirestore(app);
     let addUserInfo = (value: object) => {
@@ -32,7 +32,7 @@ const SetupShop = () => {
     <><div>
       {ArtistInfo(addUserInfo)}
     </div><hr />
-    <PortfoiloCreate initialPortfolioName = {user.displayName + "'s Portfolio"} />
+    <PortfoiloCreate initialPortfolioName = {user!.displayName + "'s Portfolio"} />
     <div>
     </div></>
   );
