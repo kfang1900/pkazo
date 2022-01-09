@@ -1,3 +1,5 @@
+import React, { useState } from 'react';
+
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 import { signIn, signInWithGoogle, signInWithFacebook } from 'api/auth/firebaseAuthApi';
@@ -23,6 +25,8 @@ const SignInForm = ({ onSignIn }: SignInFormProps ) => {
         }
         );
     }
+
+    const [showPassword, setShowPassword] = useState(false);
 
     return (<><Formik
             initialValues={{ email: '', password: '' }}
@@ -74,11 +78,20 @@ const SignInForm = ({ onSignIn }: SignInFormProps ) => {
                     <label className={styles["label"]}>
                         Password
                     </label>
-                    <div>
-                        <Field type="password" name="password" className={styles["textInput"]} />
+                    <div style={{position:"relative"}}>
+                        <Field type={showPassword ? "text" : "password"} name="password" className={styles["textInput"]} style={{paddingRight:"55px"}}/>
+                        <button className={styles["showButton"]} onClick = {() => setShowPassword(prev => !prev)} style={{position:"absolute",top:"17px",right:"10px"}}>
+                            Show
+                        </button>
                         <div className={styles["error"]}>
                             <ErrorMessage name="password" />
                         </div>
+                    </div>
+                    <div style={{marginTop:"19px"}}>
+                        <Field type="checkbox" name = "staySignedIn" style={{width:"20px", height:"20px", float:"left"}}/>
+                        <p style={{fontFamily:"Open Sans", fontStyle:"normal", fontWeight:"600", fontSize:"13px", lineHeight:"20px", color:"#3333333", alignItems:"center", float:"left", marginLeft: "10px"}}> Stay signed in </p>
+                        { /* eslint-disable-next-line jsx-a11y/anchor-is-valid, no-script-url */ }
+                        <a className={styles["showButton"]} href = "javascript:void(0)" style = {{float:"right"}}> Forgot your password? </a>
                     </div>
                     <button className={styles["loginButton"]} type="submit" disabled={isSubmitting}>
                         Sign in

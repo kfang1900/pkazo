@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
@@ -18,6 +18,8 @@ interface RegisterFormProps {
 }
 
 const RegisterForm = ({onRegister}: RegisterFormProps) => {
+
+    const [showPassword, setShowPassword] = useState(false);
 
     return (<><Formik
         initialValues={{ email: '', firstName: '', password: '' }}
@@ -86,8 +88,11 @@ const RegisterForm = ({onRegister}: RegisterFormProps) => {
                 <label className={`${styles['label']} ${styles['requiredFieldLabel']}`}>
                     Password
                 </label>
-                <div>
-                    <Field type="password" name="password" className={styles["textInput"]} />
+                <div style={{position:"relative"}}>
+                    <Field type={showPassword ? "text" : "password"} name="password" className={styles["textInput"]} style={{paddingRight:"55px"}}/>
+                    <button className={styles["showButton"]} onClick = {() => setShowPassword(prev => !prev)} style={{position:"absolute",top:"17px",right:"10px"}}>
+                        Show
+                    </button>
                     <div className={styles["error"]}>
                         <ErrorMessage name="password" />
                     </div>
@@ -105,10 +110,10 @@ const RegisterForm = ({onRegister}: RegisterFormProps) => {
             <p className={styles["textBreak"]}>Or</p>
         </div>
         <button className={styles["continueButton"]}>
-            <img alt = "Google icon" src={googleLogo}/>Register with Google
+            <img alt = "Google icon" src={googleLogo}/>Continue with Google
         </button>
         <button className={styles["continueButton"]}>
-            Register with Facebook
+            Continue with Facebook
         </button>
     </div>
     </>
