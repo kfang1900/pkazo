@@ -105,7 +105,7 @@ const RegisterForm = ({onRegister}: RegisterFormProps) => {
             <p className={styles["textBreak"]}>Or</p>
         </div>
         <button className={styles["continueButton"]}>
-            <img alt = "Google icon" src={googleLogo}/>Register with Google
+            <img alt = "Google icon" src={googleLogo} height={50} width={50}/>Register with Google
         </button>
         <button className={styles["continueButton"]}>
             Register with Facebook
