@@ -1,6 +1,6 @@
 import DimmedOverlay from "components/common/DimmedOverlay";
 import ImageUploader from "components/common/ImageUploader";
-import { Artwork, workImage } from "obj/work";
+import { Artwork, workImage } from "obj/Work";
 import React from "react";
 import { Carousel } from "react-bootstrap";
 import styles from 'styles/homepage/SignInModal.module.scss';
@@ -53,11 +53,9 @@ export class WorkCreator extends React.Component<WorkCreatorProps, WorkCreatorSt
 
     render() {
         let postUpload = async (url: string) => {
-            debugger;
             this.props.work.workImages.push(new workImage(url, null));
         };
         let work = this.props.work;
-        debugger;
         return <>
             <h2>{work.workName}</h2>
             <Carousel children={work.workImages.map<JSX.Element>((img) => img.toCarouselItem())}/>

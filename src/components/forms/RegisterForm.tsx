@@ -9,7 +9,7 @@ import styles from 'styles/forms/RegisterForm.module.scss';
 
 interface RegisterErrors {
     email?: string;
-    firstName?: string;
+    displayName?: string;
     password?: string;
 }
 
@@ -22,7 +22,7 @@ const RegisterForm = ({onRegister}: RegisterFormProps) => {
     const [showPassword, setShowPassword] = useState(false);
 
     return (<><Formik
-        initialValues={{ email: '', firstName: '', password: '' }}
+        initialValues={{ email: '', displayName: '', password: '' }}
         validateOnChange={false}
         validate={values => {
             const errors: RegisterErrors = {};
@@ -33,8 +33,8 @@ const RegisterForm = ({onRegister}: RegisterFormProps) => {
             ) {
                 errors.email = 'Invalid email address';
             }
-            if(!values.firstName) {
-                errors.firstName = 'Required';
+            if(!values.displayName) {
+                errors.displayName = 'Required';
             }
             if (!values.password) {
                 errors.password = 'Required';
@@ -44,7 +44,7 @@ const RegisterForm = ({onRegister}: RegisterFormProps) => {
         onSubmit={async (values, { setFieldError }) => {
             //Attemps to validate the registration and sign in
             try {
-                await createAccount(values.email, values.password, values.firstName);
+                await createAccount(values.email, values.password, values.displayName);
                 await signIn(values.email, values.password);
                 onRegister();
             } catch (error: any) {
@@ -80,9 +80,9 @@ const RegisterForm = ({onRegister}: RegisterFormProps) => {
                     First name
                 </label>
                 <div>
-                    <Field name="firstName" className={styles["textInput"]}/>
+                    <Field name="displayName" className={styles["textInput"]}/>
                     <div className={styles["error"]}>
-                        <ErrorMessage name="firstName" />
+                        <ErrorMessage name="displayName" />
                     </div>
                 </div>
                 <label className={`${styles['label']} ${styles['requiredFieldLabel']}`}>

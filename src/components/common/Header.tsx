@@ -12,7 +12,6 @@ import styles from 'styles/common/Header.module.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { NavigateFunction } from 'react-router-dom';
 import { Dropdown } from 'react-bootstrap';
-import EditProfileModal from 'components/homepage/EditProfileModal';
 import { getProfilePicture } from 'api/auth/firebaseAuthApi';
 
 interface HeaderProps{
@@ -20,7 +19,6 @@ interface HeaderProps{
 }
 interface HeaderState{
   showSignInModal: boolean,
-  showProfileEditModal: boolean,
   profPicUrl: String | null,
   currentUser: User | null,
 }
@@ -32,7 +30,6 @@ class Header extends React.Component<HeaderProps, HeaderState> {
         currentUser: getAuth().currentUser,
         showSignInModal: false,
         profPicUrl: null,
-        showProfileEditModal: false,
 
     }
 }
@@ -73,12 +70,6 @@ class Header extends React.Component<HeaderProps, HeaderState> {
       return newState;
     });
   }
-  toggleProfileModal = () => {
-    this.setState((oldState) => {
-      let newState = {...oldState, showProfileEditModal: !oldState.showProfileEditModal};
-      return newState;
-    });
-  }
 
   userButton = () => {
     if(!this.state.currentUser) {
@@ -106,7 +97,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
         <>
         <Dropdown>
           <Dropdown.Toggle className={styles['sellButton']}>
-            <div className="user" style={divStyle}></div>
+            <div className="user" style={divStyle} />
             {this.state.currentUser?.displayName ?? "User"}
           </Dropdown.Toggle>
           <Dropdown.Menu>
@@ -153,10 +144,6 @@ class Header extends React.Component<HeaderProps, HeaderState> {
       {this.state.showSignInModal &&
         <DimmedOverlay>
           <SignInModal closeModal={this.toggleSignInModal} />
-        </DimmedOverlay>}
-      {this.state.showProfileEditModal &&
-        <DimmedOverlay>
-          <EditProfileModal closeModal={this.toggleProfileModal} />
         </DimmedOverlay>}
     </div></>
     }

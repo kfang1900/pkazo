@@ -96,7 +96,6 @@ class ImageUploadForm extends React.Component<ImageUploadFormProps, ImageUploadF
         //Uploads the image
         this.result = await uploadBytes(imageRef, pic);
         let url = await getDownloadURL(imageRef);
-        debugger;
         if(this.props.postUpload != null) await this.props.postUpload(url);
         this.setState((state) => {
             return {

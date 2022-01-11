@@ -7,10 +7,9 @@ import {
 } from 'react-router-dom';
 import 'index.css';
 import HomePage from 'components/homepage/HomePage';
-import SetupShop from 'components/setupShop/setupShop';
-import {ArtistProfile} from 'components/Profiles/Artist';
 
 import { initializeApp } from 'firebase/app';
+import { ProfilePage } from 'components/Profiles/ProfilePage';
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -32,8 +31,7 @@ ReactDOM.render(
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<HomePage />} />
-        <Route path='/setupShop' element={<SetupShop />} />
-        <Route path='/profile/:artist_id' element={<ArtistProfile />}/>
+        <Route path='/profile/:artist_id' element={<ProfilePage  />}/>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

@@ -71,6 +71,11 @@ h2 {
     position: relative;
     width: 25%;
 }
+.content {
+    box-sizing: border-box;
+    padding: 50px 75px 0;
+    width: 100%;
+}
 
 .registerButton {
     background-color: white;

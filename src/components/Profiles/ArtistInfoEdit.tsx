@@ -1,14 +1,24 @@
 import { DatePickerField } from 'components/common/DatePicker';
 import { Field, Form, Formik } from 'formik';
+import React from 'react';
 import styles from 'styles/forms/AboutYouForm.module.scss';
 
+interface ArtistInfoEditProps{
+    dbUpdate: (value: object) => Promise<void>
+}
 
-export const ArtistInfo = (dbUpdate: (value: object) => Promise<void>) => {
+interface ArtistInfoEditState {
+    
+}
 
-    return <Formik
+
+export class ArtistInfoEdit extends React.Component<ArtistInfoEditProps, ArtistInfoEditState> {
+    
+    render() {
+        return <Formik
         initialValues={{ artistName: '' }}
         onSubmit={async (values) => {
-            dbUpdate(values)
+            this.props.dbUpdate(values)
         }}>
 
         <Form>
@@ -73,5 +83,6 @@ export const ArtistInfo = (dbUpdate: (value: object) => Promise<void>) => {
             </button>
         </Form>
     </Formik>
+    }
 
 }

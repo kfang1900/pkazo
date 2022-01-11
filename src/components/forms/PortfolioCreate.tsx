@@ -2,7 +2,7 @@ import DimmedOverlay from "components/common/DimmedOverlay";
 import { getAuth } from "firebase/auth";
 import { doc, getFirestore, setDoc } from "firebase/firestore";
 import { Field, Form, Formik, } from "formik";
-import { Artwork } from "obj/work";
+import { Artwork } from "obj/Work";
 import React from "react"; 
 import styles from 'styles/forms/AboutYouForm.module.scss';
 import { WorkCreateModal} from "./WorkCreator";
