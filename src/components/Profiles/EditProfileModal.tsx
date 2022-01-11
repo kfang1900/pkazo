@@ -5,7 +5,7 @@ import styles from 'styles/forms/FormModal.module.scss';
 import Cancel from 'assets/cancel.svg';
 import ImageUploader from 'components/common/ImageUploader';
 import { doc, getFirestore, updateDoc } from 'firebase/firestore';
-import { ArtistInfoEdit } from './ArtistInfoEdit';
+import { ArtistInfoEdit } from '../forms/ArtistInfoEdit';
 
 
 interface EditProfileModalProps {

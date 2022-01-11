@@ -1,33 +1,54 @@
+import { QueryDocumentSnapshot, SnapshotOptions } from "firebase/firestore";
 import { Carousel } from "react-bootstrap";
 
 /**
  * A class representing a piece of art, holding descriptions, images, etc.
  */
 export class Artwork {
-    constructor(workName: string | null) {
-        this.workImages = [];
-        this.uniqueId = null;
-        this.workName = workName ?? "New Work";
+    constructor(workName: string | null, uniqueId: string | null, workImages: WorkImage[] | null, artist: string) {
+        this.workImages = (workImages ?? []);
+        this.uniqueId = uniqueId;
+        this.workName = workName;
+        this.artist = artist;
     }
-    public workImages: workImage[];
-    public workName: string;
+    public workImages: WorkImage[];
+    public workName: string | null;
     public uniqueId: string | null;
-
-    toMap() {
-        return {
-            name: this.workName,
-            photoUrls: this.workImages.map((img) => img.toMap())
-        }
-    }
+    public artist: string;
 
     display() {
         return <>
+        <p>{this.workName}</p>
         <img src={this.workImages[0].photoURL} alt="Work 1"/>
         </>
     }
 }
 
-export class workImage {
+// Firestore data converter
+export const workConverter = {
+    toFirestore: (w: Artwork) => {
+        return {
+            uniqueId: w.uniqueId,
+            workName: w.workName,
+            workImages: w.workImages.map((img) => img.toMap()),
+            artist: w.artist,
+            };
+    },
+    fromFirestore: (snapshot: QueryDocumentSnapshot, options: SnapshotOptions) => {
+        const data = snapshot.data(options);
+        let imageList: WorkImage[] = [];
+        try{
+            for(const img of data.workImages){
+                imageList.push(new WorkImage(img["photoURL"], img["description"]))
+            }
+        } catch (error){
+            imageList = []
+        }
+        return new Artwork(data.workName, data.uniqueId, imageList, data.artist);
+    }
+};
+
+export class WorkImage {
     constructor(photoURL: string, description: string | null) {
         this.photoURL = photoURL;
         this.description = description;

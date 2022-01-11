@@ -6,6 +6,8 @@ import { Artist, artistConverter } from 'obj/Artist';
 import React from 'react';
 import EditProfileModal from './EditProfileModal';
 import DimmedOverlay from 'components/common/DimmedOverlay';
+import { WorkCreateModal } from 'works/WorkCreator';
+import { WorkList } from 'works/WorkList';
 
 interface ArtistProfileProps{
   artistId: string,
@@ -13,7 +15,8 @@ interface ArtistProfileProps{
 
 interface ArtistProfileState{
   artist: Artist | undefined,
-  editProfileModal: boolean
+  editProfileModal: boolean,
+  workCreateModal: boolean,
 }
 
 export class ArtistProfile extends React.Component<ArtistProfileProps, ArtistProfileState> {
@@ -22,7 +25,8 @@ export class ArtistProfile extends React.Component<ArtistProfileProps, ArtistPro
       super(props, state);
       this.state = {
         artist: undefined,
-        editProfileModal: false
+        editProfileModal: false,
+        workCreateModal: false
       }
     }
 
@@ -45,6 +49,13 @@ export class ArtistProfile extends React.Component<ArtistProfileProps, ArtistPro
     toggleEditProfileModal = () => {
       this.setState((oldState) => {
         let newState = {...oldState, editProfileModal: !oldState.editProfileModal};
+        return newState;
+      });
+    }
+
+    toggleWorkCreateModal = () => {
+      this.setState((oldState) => {
+        let newState = {...oldState, workCreateModal: !oldState.workCreateModal};
         return newState;
       });
     }
@@ -85,8 +96,11 @@ export class ArtistProfile extends React.Component<ArtistProfileProps, ArtistPro
           <div className="user" style={profPicStyle} />
             <h4>{this.state.artist.DisplayName}</h4>
             <p>{this.state.artist.Bio}</p>
-            {allowEditing && <Button onClick={() => this.toggleEditProfileModal()}>Edit Profile</Button>}
+            <WorkList artistId={this.state.artist.uid}/>
+            {allowEditing && <div><Button onClick={() => this.toggleEditProfileModal()}>Edit Profile</Button>
+            <Button onClick={() => this.toggleWorkCreateModal()}>Create New Work</Button></div>}
             {this.state.editProfileModal && <DimmedOverlay ><EditProfileModal closeModal={this.toggleEditProfileModal} dbUpdate={addUserInfo!}/></DimmedOverlay>}
+            {this.state.workCreateModal && <DimmedOverlay><WorkCreateModal artist={this.state.artist.uid} initialWork={null} closeModal={this.toggleWorkCreateModal} /></DimmedOverlay>}
           </div>
         </>
       );
