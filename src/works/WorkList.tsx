@@ -27,7 +27,7 @@ export class WorkList extends React.Component<WorkListProps, WorkListState> {
         let workRef = collection(getFirestore(), "Works").withConverter(workConverter);
         let q = query(workRef, where("artist", "==", this.props.artistId))
         let docs = (await getDocs(q)).docs;
-        let works: Artwork[] = []
+        let works: Artwork[] = [];
         docs.forEach((queryDoc) => works.push(queryDoc.data()));
         this.setState((oldState) => {return {userWorks: works}});
         }
@@ -35,9 +35,9 @@ export class WorkList extends React.Component<WorkListProps, WorkListState> {
     render() {
         if(!this.state.userWorks || this.state.userWorks == null) return <Spinner animation="border"/>;
         if(this.state.userWorks.length === 0) return <p>No works.</p>
-        let elements = [];
+        let elements: JSX.Element[] = [];
         for(const work of this.state.userWorks){
-            elements.push(work.display);
+            elements.push(work.display());
         }
         return <ul className="list-group" children={elements} />
     }

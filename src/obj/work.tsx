@@ -1,5 +1,6 @@
 import { QueryDocumentSnapshot, SnapshotOptions } from "firebase/firestore";
 import { Carousel } from "react-bootstrap";
+import styles from "styles/common/Work.module.scss";
 
 /**
  * A class representing a piece of art, holding descriptions, images, etc.
@@ -17,10 +18,14 @@ export class Artwork {
     public artist: string;
 
     display() {
-        return <>
-        <p>{this.workName}</p>
-        <img src={this.workImages[0].photoURL} alt="Work 1"/>
-        </>
+        let carouselItems: JSX.Element[] = [];
+        this.workImages.forEach((img) => carouselItems.push(img.toCarouselItem()));
+        return <div className={styles["workDisplay"]} id={this.workName + " display"}>
+            <p>{this.workName}</p>
+            <Carousel
+            className={styles["carousel"]}
+            children={carouselItems}/>
+        </div>
     }
 }
 
@@ -37,9 +42,11 @@ export const workConverter = {
     fromFirestore: (snapshot: QueryDocumentSnapshot, options: SnapshotOptions) => {
         const data = snapshot.data(options);
         let imageList: WorkImage[] = [];
+        let imgIndex = 0;
         try{
             for(const img of data.workImages){
-                imageList.push(new WorkImage(img["photoURL"], img["description"]))
+                imageList.push(new WorkImage(img["url"], img["desc"], imgIndex));
+                imgIndex++;
             }
         } catch (error){
             imageList = []
@@ -49,11 +56,13 @@ export const workConverter = {
 };
 
 export class WorkImage {
-    constructor(photoURL: string, description: string | null) {
+    constructor(photoURL: string, description: string | null, imgIndex: number) {
         this.photoURL = photoURL;
         this.description = description;
+        this.imgIndex = imgIndex;
     }
 
+    public imgIndex: number;
     public photoURL: string;
     public description: string | null;
 
@@ -65,11 +74,12 @@ export class WorkImage {
     }
 
     toCarouselItem() {
-        return <Carousel.Item>
+        return <Carousel.Item 
+        key={"Image " + this.imgIndex} className={styles["carousel-item"]}>
             <img
-                className="d-block w-100"
+            className="d-block w-100"
                 src={this.photoURL}
-                alt="First slide"
+                alt={"Photo " + this.imgIndex}
             />
             <Carousel.Caption>
                 <p>{this.description}</p>

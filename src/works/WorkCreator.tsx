@@ -1,9 +1,9 @@
 import DimmedOverlay from "components/common/DimmedOverlay";
 import ImageUploader from "components/common/ImageUploader";
 import { Artwork, workConverter, WorkImage } from "obj/Work";
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { Carousel, Spinner } from "react-bootstrap";
-import styles from 'styles/homepage/SignInModal.module.scss';
+import styles from 'styles/forms/WorkCreator.module.scss';
 import Cancel from 'assets/cancel.svg';
 import { getFirestore, setDoc, doc, collection, addDoc } from "firebase/firestore";
 
@@ -58,22 +58,39 @@ export class WorkCreator extends React.Component<WorkCreatorProps, WorkCreatorSt
         setDoc(docRef, this.state.work)
     }
 
+    handleNameChange = (newName: ChangeEvent<HTMLInputElement>) => {
+        this.setState((oldState) => {
+            let newWork = this.state.work;
+            newWork!.workName = newName.target.value;
+            let newState = {...oldState, work: newWork};
+            return newState;
+        })
+    }
+
     render() {
         if(!this.state.work) return <Spinner animation="border"/>;
-        let postUpload = async (url: string) => {
-            this.state.work!.workImages.push(new WorkImage(url, null));
+        let postUpload = async (url: string, desc: string) => {
+            this.state.work!.workImages.push(new WorkImage(url, desc, picIndex));
         };
         let work = this.state.work;
         let currentImageURL = "Works/" + this.state.work.uniqueId + "/Images/" + this.state.work.workImages.length;
-        return <>
-            <h2>{work.workName}</h2>
-            <Carousel children={work.workImages.map<JSX.Element>((img) => img.toCarouselItem())}/>
+        let carouselItems: JSX.Element[] = [];
+        let picIndex = 0;
+        for(const img of work.workImages){
+            carouselItems.push(img.toCarouselItem());
+            picIndex++;
+        }
+        return <div id="WorkCreator">
+            <input type="text" value={this.state.work.workName ?? ""} onChange={this.handleNameChange} />            
+            <h4>Images</h4>
+            <Carousel children={carouselItems}/>
             <button onClick={this.toggleUploadModal}>Upload Image</button>
             { this.state.showImageUpload &&
-            <DimmedOverlay children={<ImageUploader uploadUrl={currentImageURL} closeModal={this.toggleUploadModal} postUpload={postUpload}/>}/>
+            <DimmedOverlay children={<ImageUploader uploadUrl={currentImageURL} closeModal={this.toggleUploadModal} postUpload={postUpload} withDesc={true}/>}/>
             }
+            <h4>Work Information</h4>
             <button onClick={this.uploadWork}>Upload Work</button>
-        </>
+        </div>
     }
 }
 

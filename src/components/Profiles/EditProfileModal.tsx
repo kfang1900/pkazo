@@ -34,7 +34,7 @@ const EditProfileModal = ({ closeModal, dbUpdate }: EditProfileModalProps) => {
     let url = "Users/" + user.uid+'/profPic';
 
     //Establishes the post-upload sequence
-    let postUpload = async (url: string) => {
+    let postUpload = async (url: string, desc: string) => {
         const db = getFirestore(getApp());
         //Reference to the user's page
         const docRef = doc(db, "Users", user.uid);
@@ -52,7 +52,7 @@ const EditProfileModal = ({ closeModal, dbUpdate }: EditProfileModalProps) => {
         <div className={styles["modal"]}>
             <div>
                 <h2>Profile Picture</h2>
-                <ImageUploader closeModal={closeModal} uploadUrl={url} postUpload={postUpload} />
+                <ImageUploader closeModal={closeModal} uploadUrl={url} postUpload={postUpload} withDesc={false} />
                 <h2>Artist Information</h2>
                 <ArtistInfoEdit dbUpdate={dbUpdate} />
             </div>

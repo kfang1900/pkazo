@@ -96,6 +96,7 @@ export class ArtistProfile extends React.Component<ArtistProfileProps, ArtistPro
           <div className="user" style={profPicStyle} />
             <h4>{this.state.artist.DisplayName}</h4>
             <p>{this.state.artist.Bio}</p>
+            <h5>{this.state.artist.DisplayName + "'s Works"}</h5>
             <WorkList artistId={this.state.artist.uid}/>
             {allowEditing && <div><Button onClick={() => this.toggleEditProfileModal()}>Edit Profile</Button>
             <Button onClick={() => this.toggleWorkCreateModal()}>Create New Work</Button></div>}

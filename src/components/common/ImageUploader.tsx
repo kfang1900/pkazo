@@ -1,6 +1,6 @@
 import { getDownloadURL, getStorage, ref, uploadBytes, UploadResult } from "firebase/storage";
 
-import React, {FormEvent } from 'react';
+import React, {ChangeEvent, FormEvent } from 'react';
 import { Spinner } from 'react-bootstrap';
 
 import styles from 'styles/forms/FormModal.module.scss';
@@ -8,7 +8,8 @@ import Cancel from 'assets/cancel.svg';
 
 
 interface ImageUploaderProps {
-    postUpload: ((url: string) => Promise<void>) | null,
+    postUpload: ((url: string, desc: string) => Promise<void>) | null,
+    withDesc: boolean,
     closeModal: () => void,
     uploadUrl: string
 }
@@ -28,7 +29,7 @@ const ImageUploader = (props: ImageUploaderProps) => {
     return (
         <div className={styles["modal"]}>
             <div>
-                <ImageUploadForm uploadUrl={props.uploadUrl} postUpload={props.postUpload} />
+                <ImageUploadForm uploadUrl={props.uploadUrl} postUpload={props.postUpload} withDesc={props.withDesc} />
             </div>
             <img 
             alt='cancel' 
@@ -40,7 +41,8 @@ const ImageUploader = (props: ImageUploaderProps) => {
 }
 
 interface ImageUploadFormProps {
-    postUpload: ((url: string) => Promise<void>) | null,
+    postUpload: ((url: string, desc: string) => Promise<void>) | null,
+    withDesc: boolean,
     uploadUrl: string
 }
 
@@ -52,6 +54,7 @@ interface ImageUploadFormProps {
 interface ImageUploadFormState {
     submitting: boolean,
     submitted: boolean,
+    currDesc: string,
 }
 
 /**
@@ -68,8 +71,10 @@ class ImageUploadForm extends React.Component<ImageUploadFormProps, ImageUploadF
         this.state = {
             submitting: false,
             submitted: false,
+            currDesc: "Image Description..."
         }
         this.fileInput = React.createRef<HTMLInputElement>();
+
 
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -96,13 +101,20 @@ class ImageUploadForm extends React.Component<ImageUploadFormProps, ImageUploadF
         //Uploads the image
         this.result = await uploadBytes(imageRef, pic);
         let url = await getDownloadURL(imageRef);
-        if(this.props.postUpload != null) await this.props.postUpload(url);
+        if(this.props.postUpload != null) await this.props.postUpload(url, this.state.currDesc);
         this.setState((state) => {
             return {
                 submitting: false,
                 submitted: true
             }
         });
+    }
+
+    handleDescChange = (event: ChangeEvent<HTMLInputElement>) => {
+        this.setState((oldState) => {
+            let newState = {...oldState, currDesc: event.target.value};
+            return newState;
+        })
     }
 
     render() {
@@ -117,6 +129,9 @@ class ImageUploadForm extends React.Component<ImageUploadFormProps, ImageUploadF
                 <label>
                     File Upload:
                     <input type="file" ref={this.fileInput}/>
+                </label>
+                <label>Description: 
+                    <input type="text" ref={this.state.currDesc} onChange={this.handleDescChange}/>
                 </label>
                 <input type="submit" value="Submit" />
             </form>

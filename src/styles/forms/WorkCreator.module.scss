@@ -1,0 +1,103 @@
+.textInput {
+    // position: absolute;
+    // width: 336px;
+    height: 48px;
+    // left: 32px;
+    // top: 157px;
+
+    border: 1px solid #D8D8D8;
+    box-sizing: border-box;
+    border-radius: 6px;
+    padding: 10px;
+    margin-top: 5px;
+
+    font-family: 'Open Sans';
+    font-size: 16px;
+    line-height: 28px;
+    width: 100%;
+}
+.cancelIcon {
+    border-radius: 9999px;
+    left: 100%;
+    margin-left: 12px;
+    padding: 13px;
+    position: absolute;
+    top: 0;
+    height: 45px;
+    width: 45px;
+    background-color: rgba(255, 255, 255, 0.08);
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.15);
+        cursor: pointer;
+    }
+}
+
+.header {
+    display: flex;
+}
+
+.subheading {
+    // position: absolute;
+    height: 28px;
+    // left: 32px;
+    // top: 40px;
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 28px;
+    align-items: center;
+
+    color: #8B8B8B;
+}
+
+.headerPrimary {
+    // position: absolute;
+    height: 27px;
+    // left: 32px;
+    // top: 72px;
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 27px;
+    align-items: center;
+
+    color: #333333;
+}
+
+.modal {
+    position: relative;
+    background-color: white;
+    border-radius: 20px;
+    padding: 30px;
+    margin: auto;
+    width: 400px;
+}
+
+.registerButton {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: #ff1313;
+    font-weight: 600;
+    text-decoration: underline;
+    &:hover {
+        cursor: pointer
+    }
+}
+
+.subText {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-size: 13px;
+    line-height: 19px;
+    margin-top: 12px;
+}
+
+@media (max-height: 1080px){
+  .modal {
+    margin-top: 126px;
+  }
+}
