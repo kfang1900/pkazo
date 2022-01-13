@@ -13,6 +13,13 @@ interface WorkSummaryState{
 
 export class WorkSummary extends React.Component<WorkSummaryProps, WorkSummaryState>{
 
+    constructor(props: WorkSummaryProps, state: WorkSummaryState){
+        super(props, state);
+        this.setState({
+            work: null
+        });
+    }
+
     componentDidMount(){
         this.fetchArtwork();
     }
@@ -28,7 +35,7 @@ export class WorkSummary extends React.Component<WorkSummaryProps, WorkSummarySt
         }
 
     render() {
-        if(!this.state.work) {return <Spinner animation="border"/>;}
+        if(this.state == null || this.state.work == null || this.state.work === undefined) {return <Spinner animation="border"/>;}
         return <div>
             {this.state.work.display()}
             <table>
