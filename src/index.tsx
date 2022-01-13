@@ -10,6 +10,7 @@ import HomePage from 'components/homepage/HomePage';
 
 import { initializeApp } from 'firebase/app';
 import { ProfilePage } from 'components/Profiles/ProfilePage';
+import { WorkPage } from 'components/WorkPage/WorkPage';
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -32,6 +33,7 @@ ReactDOM.render(
       <Routes>
         <Route path='/' element={<HomePage />} />
         <Route path='/profile/:artist_id' element={<ProfilePage  />}/>
+        <Route path='/work/:work_id' element={<WorkPage  />}/>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
