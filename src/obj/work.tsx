@@ -2,17 +2,40 @@ import { QueryDocumentSnapshot, SnapshotOptions } from "firebase/firestore";
 import { Carousel } from "react-bootstrap";
 import styles from "styles/common/Work.module.scss";
 
+
+export interface ArtworkFieldsInterface{
+     workImages: WorkImage[],
+     medium: string | undefined,
+     description: string | undefined,
+     style: string | undefined,
+     subject: string | undefined,
+     date: string | undefined,
+     workName: string | null,
+     uniqueId: string | null,
+     artist: string,
+}
+
 /**
  * A class representing a piece of art, holding descriptions, images, etc.
  */
 export class Artwork {
-    constructor(workName: string | null, uniqueId: string | null, workImages: WorkImage[] | null, artist: string) {
+    constructor(workName: string | null, uniqueId: string | null, workImages: WorkImage[] | null, artist: string, medium?: string, description?: string, style?: string, subject?: string, date?: string) {
         this.workImages = (workImages ?? []);
         this.uniqueId = uniqueId;
         this.workName = workName;
         this.artist = artist;
+        this.description = description;
+        this.medium = medium;
+        this.style = style;
+        this.subject = subject;
+        this.date = date;
     }
     public workImages: WorkImage[];
+    public medium: string | undefined;
+    public description: string | undefined;
+    public style: string | undefined;
+    public subject: string | undefined;
+    public date: string | undefined;
     public workName: string | null;
     public uniqueId: string | null;
     public artist: string;
@@ -37,6 +60,11 @@ export const workConverter = {
             workName: w.workName,
             workImages: w.workImages.map((img) => img.toMap()),
             artist: w.artist,
+            medium: w.medium,
+            description: w.description,
+            style: w.style,
+            subject: w.subject,
+            date: w.date
             };
     },
     fromFirestore: (snapshot: QueryDocumentSnapshot, options: SnapshotOptions) => {
@@ -51,7 +79,7 @@ export const workConverter = {
         } catch (error){
             imageList = []
         }
-        return new Artwork(data.workName, data.uniqueId, imageList, data.artist);
+        return new Artwork(data.workName, data.uniqueId, imageList, data.artist, data.medium, data.description, data.style, data.subject, data.date);
     }
 };
 

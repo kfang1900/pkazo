@@ -130,10 +130,14 @@ class ImageUploadForm extends React.Component<ImageUploadFormProps, ImageUploadF
                     File Upload:
                     <input type="file" ref={this.fileInput}/>
                 </label>
-                <label>Description: 
-                    <input type="text" ref={this.state.currDesc} onChange={this.handleDescChange}/>
-                </label>
-                <input type="submit" value="Submit" />
+                {this.props.withDesc && 
+                <div>
+                    <label>Description: 
+                        <input type="text" ref={this.state.currDesc} onChange={this.handleDescChange}/>
+                    </label>
+                    <input type="submit" value="Submit" />
+                </div>
+        }
             </form>
         );
     }
