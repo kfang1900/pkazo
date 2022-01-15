@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
-import { createAccount, signIn } from 'api/auth/firebaseAuthApi';
+import { createAccount, signIn, signInWithGoogle } from 'api/auth/firebaseAuthApi';
 
 import googleLogo from 'assets/auth/googleLoginLogo.svg'
 import styles from 'styles/forms/RegisterForm.module.scss';
@@ -18,6 +18,27 @@ interface RegisterFormProps {
 }
 
 const RegisterForm = ({onRegister}: RegisterFormProps) => {
+
+    const googleSignIn = () => {
+        signInWithGoogle().then((isNewUser) => {
+            onRegister();
+        }
+        ).catch((error) => {
+            switch (error.code){
+                case "auth/cancelled-popup-request": {
+                    //Do nothing
+                    break;
+                }
+                case "auth/popup-closed-by-user": {
+                    //Do nothing
+                    break;
+                }
+                default: {
+                    throw error;
+                }
+            }
+        });
+    }
 
     const [showPassword, setShowPassword] = useState(false);
 
@@ -109,7 +130,7 @@ const RegisterForm = ({onRegister}: RegisterFormProps) => {
             <hr className={styles["lineBreak"]} style = {{float:"right"}}/>
             <p className={styles["textBreak"]}>Or</p>
         </div>
-        <button className={styles["continueButton"]}>
+        <button onClick = {googleSignIn} className={styles["continueButton"]}>
             <img alt = "Google icon" src={googleLogo}/>Continue with Google
         </button>
         <button className={styles["continueButton"]}>
