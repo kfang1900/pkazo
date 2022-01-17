@@ -1,5 +1,5 @@
 import { collection, getDocs, getFirestore, limit, query, where } from "firebase/firestore";
-import { Artwork, workConverter } from "obj/Work";
+import { Artwork, workConverter } from "obj/work";
 import React from "react";
 import { Spinner } from "react-bootstrap";
 
