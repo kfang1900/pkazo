@@ -28,7 +28,7 @@ const formatTime = (ts: number) => {
     return num + ' ' + unit + (num===1?'':'s') + ' ago';
 }
 
-const formatCount = (num: number) => {
+const formatCount = (num: number | undefined) => {
     if(!num){
         return '';
     }else if(num < 1000){
@@ -44,7 +44,10 @@ const formatCount = (num: number) => {
     }
 }
 
-const formatCurrency = (num: number) => {
+const formatCurrency = (num: number | undefined) => {
+    if(!num){
+        return '';
+    }
     let temp = num.toFixed(2);
     if(temp.endsWith('.00')){
         temp = temp.slice(0, -3);

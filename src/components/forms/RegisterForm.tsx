@@ -4,7 +4,8 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 import { createAccount, signIn, signInWithGoogle } from 'api/auth/firebaseAuthApi';
 
-import googleLogo from 'assets/auth/googleLoginLogo.svg'
+import googleLogo from 'assets/auth/googleLoginLogo.svg';
+import facebookLogo from 'assets/auth/facebookLoginLogo.svg';
 import styles from 'styles/forms/RegisterForm.module.scss';
 
 interface RegisterErrors {

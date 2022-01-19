@@ -8,7 +8,7 @@ import ShareIcon from 'assets/posticons/share.svg';
 import SellIcon from 'assets/posticons/sell.svg';
 import ArrowIcon from 'assets/posticons/arrow.svg'
 
-import { getAuth, User } from 'firebase/auth';
+import { /*getAuth,*/ User } from 'firebase/auth';
 import { formatTime, formatCount, formatCurrency } from 'components/FeedPage/NumberFormat'
 // import { getProfilePicture } from 'api/auth/firebaseAuthApi';
 
@@ -31,15 +31,15 @@ price           price of art
 */
 interface PostProps{
     author?: User,
-    imgs: Array<String>,
-    title: String,
-    caption: String,
+    imgs: Array<string>,
+    title: string,
+    caption: string,
     likes: number,
-    comments?: Array<String>
+    comments?: Array<string>
     timestamp: number,
     currentUser?: User | null,
     sellPost?: boolean,
-    postType?: String,
+    postType?: string,
     price?: number
 }
 const FeedPost = (props: PostProps) => {
@@ -55,6 +55,7 @@ const FeedPost = (props: PostProps) => {
     const numComments = props.comments ? formatCount(props.comments.length) : '';
 
     const postTitle = () => {
+        console.log(props.sellPost);
         if(props.sellPost){
             return <div className = {styles['sell-box']}>
                 <div>
