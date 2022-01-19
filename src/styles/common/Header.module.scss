@@ -8,12 +8,11 @@
     top: 0;
     width: 100%;
     z-index: 1;
-    height: 60px;
 }
 
 .logo {
     height: 28px;
-    margin: 16px 0px;
+    margin: 16px 0px 15px;
 
     &:hover {
         cursor: pointer;
@@ -89,6 +88,7 @@
 
 .icon {
     height: 25px;
+    width: 25px;
 
     &:hover {
         cursor: pointer;
@@ -109,7 +109,7 @@
     line-height: 22px;
     color: #65676B;
 
-    margin: 9px 5px 13px 16px;
+    margin: 9px 5px 0 16px;
     padding: 9px 18px;
     height: 42px;
     width: 200px;

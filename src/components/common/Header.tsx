@@ -9,6 +9,12 @@ import SelectedCreate from 'assets/selectedicons/icon2.svg';
 import SelectedDiscover from 'assets/selectedicons/icon3.svg';
 import SelectedChat from 'assets/selectedicons/icon4.svg';
 
+import DeselectedHome from 'assets/deselectedicons/icon0.svg';
+import DeselectedMarketplace from 'assets/deselectedicons/icon1.svg';
+import DeselectedCreate from 'assets/deselectedicons/icon2.svg';
+import DeselectedDiscover from 'assets/deselectedicons/icon3.svg';
+import DeselectedChat from 'assets/deselectedicons/icon4.svg';
+
 import DimmedOverlay from 'components/common/DimmedOverlay';
 import SignInModal from 'components/homepage/SignInModal';
 
@@ -64,10 +70,8 @@ class Header extends React.Component<HeaderProps, HeaderState> {
     }
 
     iconUrl = ['feed', 'marketplace', 'create', 'discover', 'chat'];
-    selectedIcon = [SelectedHome, SelectedMarketplace, SelectedCreate, SelectedDiscover, SelectedChat];
-    /* change this when deselected icons are available */
-    deselectedIcon = [SelectedHome, SelectedMarketplace, SelectedCreate, SelectedDiscover, SelectedChat];
-    // deselectedIcon = [Cart, Cart, Cart, Cart, Cart];
+    selectedIcon = [SelectedHome, SelectedMarketplace, SelectedCreate, SelectedDiscover, SelectedChat];a
+    deselectedIcon = [DeselectedHome, DeselectedMarketplace, DeselectedCreate, DeselectedDiscover, DeselectedChat];
 
     setUser = (user: User | null, profPic: String | null) => {
         this.setState((oldState) => {
