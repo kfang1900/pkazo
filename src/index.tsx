@@ -11,6 +11,7 @@ import HomePage from 'components/homepage/HomePage';
 import { initializeApp } from 'firebase/app';
 import { ProfilePage } from 'components/Profiles/ProfilePage';
 import { WorkPage } from 'components/WorkPage/WorkPage';
+import FeedPage from 'components/FeedPage/FeedPage'
 import MarketplacePage from 'components/BlankPages/MarketplacePage'
 import CreatePage from 'components/BlankPages/CreatePage'
 import DiscoverPage from 'components/BlankPages/DiscoverPage'
@@ -38,6 +39,7 @@ ReactDOM.render(
         <Route path='/' element={<HomePage />} />
         <Route path='/profile/:artist_id' element={<ProfilePage  />}/>
         <Route path='/work/:work_id' element={<WorkPage  />}/>
+        <Route path='/feed' element={<FeedPage/>}/>
         <Route path='/marketplace' element={<MarketplacePage />}/>
         <Route path='/create' element={<CreatePage />}/>
         <Route path='/discover' element={<DiscoverPage />}/>

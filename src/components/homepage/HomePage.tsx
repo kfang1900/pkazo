@@ -6,9 +6,9 @@ import styles from 'styles/homepage/HomePage.module.scss';
 import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
-    
+
     return (
-        <div className={styles["header"]}>
+        <div>
             <Header navigate={useNavigate()} />
         </div>
     );

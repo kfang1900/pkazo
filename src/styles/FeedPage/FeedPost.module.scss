@@ -1,0 +1,157 @@
+.post-border {
+    border: 1px solid #D8D8D8;
+    border-radius: 6px;
+    margin-bottom:  20px;
+}
+
+.profile-picture {
+    margin-left: 20px;
+    margin-top: 16px;
+    width: 62px;
+    height: 62px;
+    clip-path: circle(31px at center);
+}
+
+.author-name {
+    margin-left: 95px;
+    margin-top: 29px;
+
+    font-family: "Open Sans";
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 100%;
+
+    color: #333333;
+}
+
+.author-location {
+    margin-left: 95px;
+    margin-top: -10px;
+
+    font-family: "Open Sans";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 100%;
+
+    color: #8E8E93;
+}
+
+.post-content {
+    width: 100%;
+    margin: 16px auto;
+    &:hover ~ .content-button {
+        opacity: 0.5;
+    }
+}
+
+.content-button {
+    opacity: 0.1;
+    transition: 0.3s;
+    position: absolute;
+    top: 50%;
+    &:hover {
+        cursor: pointer;
+        opacity: 0.5;
+    }
+}
+
+.dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 2px;
+}
+
+.post-body {
+    margin: auto 20px;
+}
+
+.timestamp {
+
+    font-family: "Open Sans";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 19px;
+
+    color: #8B8B8B;
+}
+
+.sell-box {
+    border: 1px solid #D8D8D8;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 12px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+
+    &:hover{
+        cursor:pointer;
+    }
+}
+
+.post-title {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 150%;
+
+    color: black;
+}
+
+.post-caption {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 150%;
+
+    color: black;
+}
+
+.post-type {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 100%;
+
+    color: #8B8B8B;
+}
+
+.price {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 100%;
+    text-align:center;
+    margin-left: auto;
+    margin-right: 20px;
+
+    color: #333333;
+}
+
+.count {
+    margin-left: 11px;
+    // width: 60px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 150%;
+
+    color: #5A5A5A;
+}
+
+.icon {
+    &:hover{
+        cursor: pointer;
+    }
+}

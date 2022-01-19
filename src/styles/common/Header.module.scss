@@ -3,29 +3,38 @@
     flex-wrap: wrap;
     padding: 0 60px;
     border-bottom: 1px solid #D8D8D8;
-    // flex: 1;
+    background-color: white;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+    height: 60px;
 }
 
 .logo {
     height: 28px;
-    margin: 20px 0px;
+    margin: 16px 0px;
+
+    &:hover {
+        cursor: pointer;
+    }
 }
 
-.headerRight {
-    margin-top: 13px;
+.header-right {
+    margin-top: 9px;
     margin-left: auto;
     flex-shrink: 0;
 }
 
-.headerCenter {
+.header-center {
     flex-grow: 0.5;
-    margin-top: 20px;
+    margin-top: 16px;
     margin-left: auto;
     display: flex;
     justify-content: space-between;
 }
 
-.loginButton {
+.login-button {
     background-color: transparent;
     border-radius: 41px;
     border: none;
@@ -47,7 +56,7 @@
     }
 }
 
-.sellButton {
+.sell-button {
     background-color: #E24E4D;
     border-radius: 41px;
     border: none;
@@ -86,7 +95,7 @@
     }
 }
 
-.searchBar {
+.search-bar {
     background-color: white;
     border: 1px solid #D8D8D8;
     outline: none;
@@ -100,7 +109,7 @@
     line-height: 22px;
     color: #65676B;
 
-    margin: 13px 5px 13px 16px;
+    margin: 9px 5px 13px 16px;
     padding: 9px 18px;
     height: 42px;
     width: 200px;
@@ -109,40 +118,6 @@
 
     &:focus {
         border: 1px solid #AAAAAA;
-    }
-}
-
-.category {
-    color: #1e1e1e;
-    font-size: 13px;
-
-    &:hover {
-        cursor: pointer;
-    }
-}
-
-.headerBottomRow {
-    display: flex;
-    justify-content: space-between;
-}
-
-.headerTopRow {
-    display: flex;
-    align-items: center;
-}
-
-.headerTopRowRight {
-    align-items: center;
-    display: flex;
-    flex: 1;
-    justify-content: flex-end;
-}
-
-.signIn {
-    margin-right: 20px;
-
-    &:hover {
-        cursor: pointer;
     }
 }
 
@@ -155,13 +130,13 @@
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
-  }
+}
 
-  @media all and (max-width: 900px){
-      .searchBar {
-          width: auto;
-          flex-grow: 1;
-          margin: 0 0 13px 0;
-          order: 2;
-      }
-  }
+@media all and (max-width: 900px){
+    .search-bar {
+        width: auto;
+        flex-grow: 1;
+        margin: 0 0 13px 0;
+        order: 2;
+    }
+}

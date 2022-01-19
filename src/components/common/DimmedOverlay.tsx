@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import styles from 'styles/common/DimmedOverlay.module.scss';
 
@@ -7,11 +7,15 @@ interface DimmedOverlayProps {
 }
 
 const DimmedOverlay = ({ children }: DimmedOverlayProps) => {
-  return (
-    <div className={styles['overlay']}>
-      { children }
-    </div>
-  );
+    useEffect(() => {
+        document.body.style.overflow = 'hidden';
+        return () => document.body.style.overflow = 'unset';
+    }, []);
+    return (
+        <div className={styles['overlay']}>
+        { children }
+        </div>
+    );
 }
 
 export default DimmedOverlay;

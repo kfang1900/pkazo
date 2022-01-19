@@ -63,11 +63,11 @@ class Header extends React.Component<HeaderProps, HeaderState> {
         this.setUser(user, url)
     }
 
-    iconUrl = ['', 'marketplace', 'create', 'discover', 'chat'];
+    iconUrl = ['feed', 'marketplace', 'create', 'discover', 'chat'];
     selectedIcon = [SelectedHome, SelectedMarketplace, SelectedCreate, SelectedDiscover, SelectedChat];
     /* change this when deselected icons are available */
-    // deselectedIcon = [SelectedHome, SelectedMarketplace, SelectedCreate, SelectedDiscover, SelectedChat];
-    deselectedIcon = [Cart, Cart, Cart, Cart, Cart];
+    deselectedIcon = [SelectedHome, SelectedMarketplace, SelectedCreate, SelectedDiscover, SelectedChat];
+    // deselectedIcon = [Cart, Cart, Cart, Cart, Cart];
 
     setUser = (user: User | null, profPic: String | null) => {
         this.setState((oldState) => {
@@ -91,7 +91,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
     userButton = () => {
         if(!this.state.currentUser) {
             return (
-                <button className={styles['loginButton']}
+                <button className={styles['login-button']}
                 onClick={this.toggleSignInModal}>Sign in</button>
             )
         }
@@ -112,7 +112,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
             return (
                 <>
                 <Dropdown>
-                <Dropdown.Toggle className={styles['sellButton']}>
+                <Dropdown.Toggle className={styles['sell-button']}>
                 <div className="user" style={divStyle} />
                 {this.state.currentUser?.displayName ?? "User"}
                 </Dropdown.Toggle>
@@ -128,7 +128,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
     navBar = () => {
         let directory = window.location.pathname.split('/')[1];
         if(this.state.width > 900){
-            return <div className = {styles['headerCenter']}>
+            return <div className = {styles['header-center']}>
                 {this.iconUrl.map((iconUrl, i) => {
                     return (<img
                         key = {iconUrl}
@@ -147,19 +147,20 @@ class Header extends React.Component<HeaderProps, HeaderState> {
     };
 
     render() {
-        return <div className = {styles['header']}>
+        return <><div className = {styles['header']}>
             <img
                 alt = 'logo'
                 className = {styles['logo']}
-                src = {Logo} />
+                src = {Logo}
+                onClick = {() => this.props.navigate('/')}/>
             <input
-                className={styles['searchBar']}
+                className={styles['search-bar']}
                 type="text"
                 placeholder="Search" />
             {this.navBar()}
-            <div className = {styles['headerRight']}>
+            <div className = {styles['header-right']}>
                 {this.userButton()}
-                <button onClick = {() => this.props.navigate('/setupShop')} className = {styles['sellButton']}>
+                <button onClick = {() => this.props.navigate('/setupShop')} className = {styles['sell-button']}>
                     Create on Pkazo
                 </button>
                 <img
@@ -168,49 +169,12 @@ class Header extends React.Component<HeaderProps, HeaderState> {
                     src = {Cart}
                     onClick = {() => this.props.navigate('/cart')} />
             </div>
+            </div>
             {this.state.showSignInModal &&
               <DimmedOverlay>
                 <SignInModal closeModal={this.toggleSignInModal} />
               </DimmedOverlay>}
-        </div>
-
-        // return <div className={styles['header']}>
-        // </div>
-        // <div className={styles['headerTopRow']}>
-        //   <img
-        //     alt='logo'
-        //     className={styles['logo']}
-        //     src={Logo} />
-        //   <input
-        //     className={styles['searchBar']}
-        //     type="text"
-        //     placeholder="Search by artists, style, theme, tag, location, etc." />
-        //   <div className={styles['headerTopRowRight']}>
-        //     <button onClick={() => this.props.navigate('/setupShop')} className={styles['sellButton']}>
-        //       Sell on Pkazo
-        //     </button>
-        //     {this.userButton()}
-        //     <img
-        //       alt='logo'
-        //       className={styles['cart']}
-        //       src={Cart} />
-        //   </div>
-        // </div>
-        // <div className={styles['headerBottomRow']}>
-        //   {this.navigationCategories.map((category) => {
-        //     return (
-        //       <div key={category} className={styles['category']}>
-        //         {category}
-        //       </div>
-        //     );
-        //   })}
-        // </div>
-        // {this.state.showSignInModal &&
-        //   <DimmedOverlay>
-        //     <SignInModal closeModal={this.toggleSignInModal} />
-        //   </DimmedOverlay>}
-        // </div>}
-        // </div>
+        </>
     }
 }
 

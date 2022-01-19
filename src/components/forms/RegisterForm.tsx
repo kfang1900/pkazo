@@ -134,7 +134,7 @@ const RegisterForm = ({onRegister}: RegisterFormProps) => {
             <img alt = "Google icon" src={googleLogo}/>Continue with Google
         </button>
         <button className={styles["continueButton"]}>
-            Continue with Facebook
+            <img alt = "Facebook icon" src={facebookLogo} width='40px' height='25px' style={{marginTop:'-5px'}}/> Continue with Facebook
         </button>
     </div>
     </>

@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 const CreatePage = () => {
 
     return (
-        <div style={{boxSizing: "border-box", width: "100%"}}>
+        <div>
             <Header navigate={useNavigate()} />
         </div>
     );

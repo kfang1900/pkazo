@@ -5,7 +5,8 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { signIn, signInWithGoogle, signInWithFacebook } from 'api/auth/firebaseAuthApi';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import googleLogo from 'assets/auth/googleLoginLogo.svg'
+import googleLogo from 'assets/auth/googleLoginLogo.svg';
+import facebookLogo from 'assets/auth/facebookLoginLogo.svg';
 import styles from 'styles/forms/SignInForm.module.scss';
 
 interface SignInErrors {
@@ -120,10 +121,10 @@ const SignInForm = ({ onSignIn }: SignInFormProps ) => {
                 <p className={styles["textBreak"]}>Or</p>
             </div>
             <button onClick={googleSignIn} className={styles["continueButton"]}>
-                <img alt = "Google icon" src={googleLogo} width={50} height={50}/>Continue with Google
+                <img alt = "Google icon" src={googleLogo} height='50px' style={{marginRight:'-3px'}}/>Continue with Google
             </button>
             <button onClick={signInWithFacebook} className={styles["continueButton"]}>
-                Continue with Facebook
+                <img alt = "Facebook icon" src={facebookLogo} width='40px' height='25px' style={{marginTop:'-5px'}}/> Continue with Facebook
             </button>
         </div>
       </>
