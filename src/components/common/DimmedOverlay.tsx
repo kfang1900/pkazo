@@ -9,7 +9,9 @@ interface DimmedOverlayProps {
 const DimmedOverlay = ({ children }: DimmedOverlayProps) => {
     useEffect(() => {
         document.body.style.overflow = 'hidden';
-        return () => document.body.style.overflow = 'unset';
+        return () => {
+            document.body.style.overflow = 'unset';
+        }
     }, []);
     return (
         <div className={styles['overlay']}>
