@@ -70,7 +70,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
     }
 
     iconUrl = ['feed', 'marketplace', 'create', 'discover', 'chat'];
-    selectedIcon = [SelectedHome, SelectedMarketplace, SelectedCreate, SelectedDiscover, SelectedChat];a
+    selectedIcon = [SelectedHome, SelectedMarketplace, SelectedCreate, SelectedDiscover, SelectedChat];
     deselectedIcon = [DeselectedHome, DeselectedMarketplace, DeselectedCreate, DeselectedDiscover, DeselectedChat];
 
     setUser = (user: User | null, profPic: String | null) => {
