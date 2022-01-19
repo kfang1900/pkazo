@@ -30,15 +30,15 @@ postType        type of art (when sellPost = true)
 price           price of art
 */
 interface PostProps{
-    author: User,
+    author?: User,
     imgs: Array<String>,
     title: String,
     caption: String,
     likes: number,
-    comments: Array<String>
+    comments?: Array<String>
     timestamp: number,
-    currentUser: User | null,
-    sellPost: boolean,
+    currentUser?: User | null,
+    sellPost?: boolean,
     postType?: String,
     price?: number
 }
