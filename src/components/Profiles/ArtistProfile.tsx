@@ -1,13 +1,13 @@
 import { getApp } from 'firebase/app';
-import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
-import { getAuth } from 'firebase/auth';
-import { Button, Spinner } from 'react-bootstrap';
+import { doc, getDoc, getFirestore/*, setDoc*/ } from "firebase/firestore";
+// import { getAuth } from 'firebase/auth';
+import { Spinner } from 'react-bootstrap';
 import { Artist, artistConverter } from 'obj/Artist';
 import React from 'react';
-import EditProfileModal from './EditProfileModal';
-import DimmedOverlay from 'components/common/DimmedOverlay';
-import { WorkCreateModal } from 'works/WorkCreator';
-import { WorkList } from 'works/WorkList';
+// import EditProfileModal from './EditProfileModal';
+// import DimmedOverlay from 'components/common/DimmedOverlay';
+// import { WorkCreateModal } from 'works/WorkCreator';
+// import { WorkList } from 'works/WorkList';
 import { formatCount } from 'components/common/NumberFormat';
 
 import styles from 'styles/Profiles/ArtistProfile.module.scss';
@@ -18,8 +18,8 @@ interface ArtistProfileProps{
 
 interface ArtistProfileState{
     artist: Artist | undefined,
-    editProfileModal: boolean,
-    workCreateModal: boolean,
+    // editProfileModal: boolean,
+    // workCreateModal: boolean,
 }
 
 export class ArtistProfile extends React.Component<ArtistProfileProps, ArtistProfileState> {
@@ -28,8 +28,8 @@ export class ArtistProfile extends React.Component<ArtistProfileProps, ArtistPro
         super(props, state);
         this.state = {
             artist: undefined,
-            editProfileModal: false,
-            workCreateModal: false
+            // editProfileModal: false,
+            // workCreateModal: false
         }
     }
 
@@ -64,19 +64,19 @@ export class ArtistProfile extends React.Component<ArtistProfileProps, ArtistPro
         });
     }
 
-    toggleEditProfileModal = () => {
-        this.setState((oldState) => {
-            let newState = {...oldState, editProfileModal: !oldState.editProfileModal};
-            return newState;
-        });
-    }
-
-    toggleWorkCreateModal = () => {
-        this.setState((oldState) => {
-            let newState = {...oldState, workCreateModal: !oldState.workCreateModal};
-            return newState;
-        });
-    }
+    // toggleEditProfileModal = () => {
+    //     this.setState((oldState) => {
+    //         let newState = {...oldState, editProfileModal: !oldState.editProfileModal};
+    //         return newState;
+    //     });
+    // }
+    //
+    // toggleWorkCreateModal = () => {
+    //     this.setState((oldState) => {
+    //         let newState = {...oldState, workCreateModal: !oldState.workCreateModal};
+    //         return newState;
+    //     });
+    // }
 
     render() {
 
@@ -87,16 +87,16 @@ export class ArtistProfile extends React.Component<ArtistProfileProps, ArtistPro
 
         let coverPhoto = "http://hotel.kasaulicastle.com/wp-content/uploads/2013/05/bg-3-1500x300.jpg";
 
-        const isSelf = this.state.artist.uid === getAuth().currentUser?.uid;
+        // const isSelf = this.state.artist.uid === getAuth().currentUser?.uid;
 
         //If allowing editing of the profile
-        const allowEditing = true;//this.state.artist.uid === getAuth().currentUser?.uid;
-        let addUserInfo = undefined;
-        if(allowEditing){
-            addUserInfo = (value: object) => {
-                return setDoc(doc(getFirestore(), 'Users/' + getAuth().currentUser!.uid), value)
-            }
-        }
+        // const allowEditing = true;//this.state.artist.uid === getAuth().currentUser?.uid;
+        // let addUserInfo = undefined;
+        // if(allowEditing){
+        //     addUserInfo = (value: object) => {
+        //         return setDoc(doc(getFirestore(), 'Users/' + getAuth().currentUser!.uid), value)
+        //     }
+        // }
 
         return (
             <div className = {styles['profile-container']}>
