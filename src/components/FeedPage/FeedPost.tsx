@@ -9,7 +9,7 @@ import SellIcon from 'assets/posticons/sell.svg';
 import ArrowIcon from 'assets/posticons/arrow.svg'
 
 import { /*getAuth,*/ User } from 'firebase/auth';
-import { formatTime, formatCount, formatCurrency } from 'components/FeedPage/NumberFormat'
+import { formatTime, formatCount, formatCurrency } from 'components/common/NumberFormat';
 // import { getProfilePicture } from 'api/auth/firebaseAuthApi';
 
 import styles from 'styles/FeedPage/FeedPost.module.scss'
@@ -55,7 +55,6 @@ const FeedPost = (props: PostProps) => {
     const numComments = props.comments ? formatCount(props.comments.length) : '';
 
     const postTitle = () => {
-        console.log(props.sellPost);
         if(props.sellPost){
             return <div className = {styles['sell-box']}>
                 <div>
@@ -93,7 +92,6 @@ const FeedPost = (props: PostProps) => {
                 src = {ImageButton}
                 className = {styles['content-button']}
                 style = {{left: '20px'}}
-                width = '40px' height = '40px'
                 onClick = {prevImg} />
             }
             { imgIndex < props.imgs.length-1 &&
@@ -102,7 +100,6 @@ const FeedPost = (props: PostProps) => {
                 src = {ImageButton}
                 className = {styles['content-button']}
                 style = {{right: '20px'}}
-                width = '40px' height = '40px'
                 onClick = {nextImg} />
             }
             { props.sellPost &&

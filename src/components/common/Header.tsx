@@ -31,7 +31,7 @@ interface HeaderProps{
 }
 interface HeaderState{
     showSignInModal: boolean,
-    profPicUrl: String | null,
+    profPicUrl: string | null,
     currentUser: User | null,
     width: Number,
     height: Number
@@ -73,7 +73,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
     selectedIcon = [SelectedHome, SelectedMarketplace, SelectedCreate, SelectedDiscover, SelectedChat];
     deselectedIcon = [DeselectedHome, DeselectedMarketplace, DeselectedCreate, DeselectedDiscover, DeselectedChat];
 
-    setUser = (user: User | null, profPic: String | null) => {
+    setUser = (user: User | null, profPic: string | null) => {
         this.setState((oldState) => {
             if(typeof(profPic) == "string"){
                 let newState = {...oldState, currentUser: user, profPicUrl: profPic};
@@ -100,31 +100,24 @@ class Header extends React.Component<HeaderProps, HeaderState> {
             )
         }
         else {
-            let divStyle = {};
-            if(this.state.profPicUrl){
-                divStyle = {
-                    backgroundImage: 'url(' + this.state.profPicUrl + ')',
-                    display: 'inline-block',
-                    width: '30px',
-                    height: '30px',
-                    borderRadius: '50%',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundPosition: 'center center',
-                    backgroundSize: 'cover',
-                };
-            }
             return (
                 <>
-                <Dropdown>
-                <Dropdown.Toggle className={styles['sell-button']}>
-                <div className="user" style={divStyle} />
-                {this.state.currentUser?.displayName ?? "User"}
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                <Dropdown.Item onClick={() => signOut(getAuth())}>Log Out</Dropdown.Item>
-                <Dropdown.Item onClick={() => this.props.navigate('/profile/' + this.state.currentUser!.uid)}>Profile</Dropdown.Item>
-                </Dropdown.Menu>
-                </Dropdown></>
+                {!!this.state.profPicUrl &&
+                    <Dropdown>
+                    <Dropdown.Toggle className = {styles['profile-dropdown']} style={{background:'transparent',color:'black',border:'none',boxShadow:'none'}}>
+                    <img
+                        alt = 'profile'
+                        className = {styles['profile-picture']}
+                        src = {this.state.profPicUrl} />
+                    { /* this.state.currentUser?.displayName ?? "User" */ }
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                    <Dropdown.Item onClick={() => this.props.navigate('/profile/' + this.state.currentUser!.uid)}>Profile</Dropdown.Item>
+                    <Dropdown.Item onClick={() => signOut(getAuth())}>Log Out</Dropdown.Item>
+                    </Dropdown.Menu>
+                    </Dropdown>
+                }
+                </>
             )
         }
     };

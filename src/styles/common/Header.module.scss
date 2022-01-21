@@ -20,17 +20,18 @@
 }
 
 .header-right {
-    margin-top: 9px;
     margin-left: auto;
     flex-shrink: 0;
+    display:flex;
+    align-items: center;
 }
 
 .header-center {
     flex-grow: 0.5;
-    margin-top: 16px;
     margin-left: auto;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .login-button {
@@ -87,9 +88,6 @@
 }
 
 .icon {
-    height: 25px;
-    width: 25px;
-
     &:hover {
         cursor: pointer;
     }
@@ -130,6 +128,23 @@
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
+}
+
+.profile-picture {
+    width: 32px;
+    height: 32px;
+    margin-right: 10px;
+    clip-path: circle(16px at center);
+
+    &:hover{
+        cursor: pointer;
+    }
+}
+
+.profile-dropdown{
+    &:after{
+        display: none !important;
+    }
 }
 
 @media all and (max-width: 900px){
