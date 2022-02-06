@@ -20,13 +20,14 @@ import ChatPage from 'components/BlankPages/ChatPage'
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-    projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-    storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: process.env.REACT_APP_FIREBASE_SENDER_ID,
-    appId: process.env.REACT_APP_FIREBASE_APP_ID,
-    measurementId: process.env.REACT_APP_MEASUREMENT_ID
+  apiKey: "AIzaSyBun6_3MDzXklyJUogZZKiPfZZ60f-6IZo",
+  authDomain: "pkazo-302be.firebaseapp.com",
+  databaseURL: "https://pkazo-302be-default-rtdb.firebaseio.com",
+  projectId: "pkazo-302be",
+  storageBucket: "pkazo-302be.appspot.com",
+  messagingSenderId: "812469203594",
+  appId: "1:812469203594:web:b2027e9c9622d1f708b373",
+  measurementId: "G-KPB55MEFB7"
 };
 
 // Initialize Firebase
